@@ -17,68 +17,68 @@ switch($request){
         break;
 // admin panel
 // dashboard 
-    case '/dashboard':
+    case '/admin/dashboard':
         require_once __DIR__ ."/backend/dashboard.php";
         break;
 // Login 
-    case '/admin-login':
+    case '/admin/login':
             require_once __DIR__ ."/backend/login.php";
             break;
     // Register 
-    case '/admin-register':
+    case '/admin/register':
             require_once __DIR__ ."/backend/register.php";
             break;
     // 404 Page 
-    case '/Error-404':
+    case '/admin/Error-404':
             require_once __DIR__ ."/backend/404.php";
             break;
             
-    case '/blank':
+    case '/admin/blank':
         require_once __DIR__ ."/backend/blank.php";
         break;
 // bootstrap UI 
-    case '/alerts':
+    case '/admin/alerts':
         require_once __DIR__ ."/backend/includes/bootstrap UI/alerts.php";
         break;
-    case '/buttons':
+    case '/admin/buttons':
         require_once __DIR__ ."/backend/includes/bootstrap UI/buttons.php";
         break;
-    case '/dropdowns':
+    case '/admin/dropdowns':
         require_once __DIR__ ."/backend/includes/bootstrap UI/dropdowns.php";
         break;
-    case '/modals':
+    case '/admin/modals':
         require_once __DIR__ ."/backend/includes/bootstrap UI/modals.php";
         break;
-    case '/popovers':
+    case '/admin/popovers':
         require_once __DIR__ ."/backend/includes/bootstrap UI/popovers.php";
         break;
-    case '/progress-bar':
+    case '/admin/progress-bar':
         require_once __DIR__ ."/backend/includes/bootstrap UI/progress-bar.php";
         break;
 // boostrap UI end
 // Forms 
-    case '/form-basics':
+    case '/admin/form-basics':
         require_once __DIR__ ."/backend/includes/Forms/form_basics.php";
         break;
-    case '/form-advanceds':
+    case '/admin/form-advanceds':
         require_once __DIR__ ."/backend/includes/Forms/form_advanceds.php";
         break;
 // Forms end 
 // Tables 
-    case '/simple-tables':
+    case '/admin/simple-tables':
         require_once __DIR__ ."/backend/includes/Tables/simple-tables.php";
         break;
-    case '/datatables':
+    case '/admin/datatables':
         require_once __DIR__ ."/backend/includes/Tables/datatables.php";
         break;
 // Tables end 
 // UI COLORS 
-    case '/ui-colors':
+    case '/admin/ui-colors':
         require_once __DIR__ ."/backend/ui-colors.php";
         break;
 // UI COLORS END 
 // Charts 
-    case '/charts':
+    case '/admin/charts':
         require_once __DIR__ ."/backend/charts.php";
         break;
 // Charts end 
