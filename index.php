@@ -33,7 +33,7 @@ switch($request){
             require_once __DIR__ ."/backend/404.php";
             break;
             
-    case '/blank-page':
+    case '/blank':
         require_once __DIR__ ."/backend/blank.php";
         break;
 // bootstrap UI 
