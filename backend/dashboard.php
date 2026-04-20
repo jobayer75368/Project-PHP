@@ -358,8 +358,9 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-
+  <!-- js     -->
   <?php require_once __DIR__ ."/includes/script.php" ?>
+  <!-- js  -->
 </body>
 
 </html>
