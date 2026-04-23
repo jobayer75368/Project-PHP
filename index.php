@@ -24,10 +24,6 @@ switch($request){
     case '/admin/login':
             require_once __DIR__ ."/backend/login.php";
             break;
-    // Register 
-    case '/admin/register':
-            require_once __DIR__ ."/backend/register.php";
-            break;
     // 404 Page 
     case '/admin/Error-404':
             require_once __DIR__ ."/backend/404.php";
@@ -71,6 +67,8 @@ switch($request){
     case '/admin/datatables':
         require_once __DIR__ ."/backend/includes/Tables/datatables.php";
         break;
+    case '/admin/admin-tables':
+        require_once __DIR__ ."/backend/includes/Tables/admintables.php";
 // Tables end 
 // UI COLORS 
     case '/admin/ui-colors':

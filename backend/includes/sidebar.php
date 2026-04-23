@@ -58,6 +58,7 @@
             <h6 class="collapse-header">Tables</h6>
             <a class="collapse-item" href="/admin/simple-tables">Simple Tables</a>
             <a class="collapse-item" href="/admin/datatables">DataTables</a>
+            <a class="collapse-item" href="/admin/admin-tables">Admins Tables</a>
           </div>
         </div>
       </li>
@@ -81,7 +82,6 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Example Pages</h6>
             <a class="collapse-item" href="/admin/login">Login</a>
-            <a class="collapse-item" href="/admin/register">Register</a>
             <a class="collapse-item" href="/admin/Error-404">404 Page</a>
             <a class="collapse-item" href="/admin/blank">Blank Page</a>
           </div>
