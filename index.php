@@ -68,7 +68,8 @@ switch($request){
         require_once __DIR__ ."/backend/includes/Tables/datatables.php";
         break;
     case '/admin/admin-tables':
-        require_once __DIR__ ."/backend/includes/Tables/admintables.php";
+        require_once __DIR__ ."/backend/includes/Tables/admin-tables.php";
+        break;
 // Tables end 
 // UI COLORS 
     case '/admin/ui-colors':
