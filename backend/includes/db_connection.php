@@ -61,4 +61,13 @@ catch (\Throwable $th){
 //     echo "Error Deleting admin:".$sql."<br>".$e->getMessage();
 // }
 
+// try{
+//     $sql= "UPDATE admins SET email ='admin@gmail.com' WHERE id=1";
+//     $statement =$pdo->prepare($sql);
+//     $statement->execute();
+//     echo "Admin Email updated Successfully!";
+// }catch(PDOException $e){
+//     echo "Error Updating Data:".$sql."<br>".$e->getMessage();
+// }
+
 

@@ -32,6 +32,9 @@ switch($request){
     case '/admin/blank':
         require_once __DIR__ ."/backend/blank.php";
         break;
+    case '/admin/logout':
+        require_once __DIR__ ."/backend/logout.php";
+        break;
 // bootstrap UI 
     case '/admin/alerts':
         require_once __DIR__ ."/backend/includes/bootstrap UI/alerts.php";
