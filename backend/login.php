@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once __DIR__ . "/includes/db_connection.php";
-$name = "";
 $email= "";
 $password = "";
 
@@ -12,13 +11,8 @@ function sanitize($data){
 }
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $name = sanitize($_POST["name"]);
     $email = sanitize($_POST["email"]);
     $password = sanitize($_POST["password"]);
-    
-    if (empty($name)) {
-        $error["name"] = "Name is required!";
-    }
 
     if(empty($email)){
         $error["email"]= "Email is required!";
@@ -72,11 +66,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <h1 class="h4 text-gray-900 mb-4">Login</h1>
                   </div>
                   <form class="user" method="POST">
-                    <div class="form-group">
-                      <input type="text" class="form-control " id="exampleInputName" aria-describedby="emailHelp"
-                        placeholder="Enter Your Name" name="name" value="<?php echo $name?>">
-                        <p class="text-danger"><?php echo isset($error["name"]) ? $error["name"]:""; ?></p>
-                    </div>
                     <div class="form-group">
                       <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp"
                         placeholder="Enter Email Address" name="email" value="<?php echo $email ?>">

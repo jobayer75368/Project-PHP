@@ -15,6 +15,23 @@ switch($request){
     case '/contact':
         require_once __DIR__ . '/frontend/contact.php';
         break;
+// backend 
+// register 
+    case '/register':
+        require_once __DIR__ . '/backend/register.php';
+        break;
+// Login 
+    case '/login':
+        require_once __DIR__ . '/backend/user_login.php';
+        break;
+    case '/migration':
+        require_once __DIR__ . '/backend/migration.php';
+        break;
+    case '/db_connection':
+        require_once __DIR__ . '/backend/includes/db_connection.php';
+        break;
+
+
 // admin panel
 // dashboard 
     case '/admin/dashboard':
@@ -64,8 +81,8 @@ switch($request){
         break;
 // Forms end 
 // Tables 
-    case '/admin/simple-tables':
-        require_once __DIR__ ."/backend/includes/Tables/simple-tables.php";
+    case '/admin/users-tables':
+        require_once __DIR__ ."/backend/includes/Tables/users-tables.php";
         break;
     case '/admin/datatables':
         require_once __DIR__ ."/backend/includes/Tables/datatables.php";
@@ -73,17 +90,7 @@ switch($request){
     case '/admin/admin-tables':
         require_once __DIR__ ."/backend/includes/Tables/admin-tables.php";
         break;
-// Tables end 
-// UI COLORS 
-    case '/admin/ui-colors':
-        require_once __DIR__ ."/backend/ui-colors.php";
-        break;
-// UI COLORS END 
-// Charts 
-    case '/admin/charts':
-        require_once __DIR__ ."/backend/charts.php";
-        break;
-// Charts end 
+// Tables end  
     default:
         http_response_code(404);
         require_once __DIR__ . "/frontend/404.php";
