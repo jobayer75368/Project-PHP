@@ -7,72 +7,118 @@
 
     <header class="hero-section text-center">
         <div class="container" data-aos="fade-down">
-            <h1 class="display-4 fw-bold">Welcome to Contact Page</h1>
-            <p class="lead">Projukti ebong lifestyle niye protidin-er notun jante thakun.</p>
+            <h1 class="display-4 fw-bold">Contact Us</h1>
+            <p class="lead">Get in touch with us today</p>
         </div>
     </header>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="card mb-4 overflow-hidden" data-aos="fade-up">
-                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085" class="card-img-top" alt="post">
+    <div class="container my-5">
+        <!-- Contact Info Cards -->
+        <div class="row g-4 mb-5">
+            <div class="col-md-4" data-aos="fade-up">
+                <div class="card text-center border-0 shadow-sm h-100">
                     <div class="card-body p-4">
-                        <span class="badge bg-soft-primary text-primary mb-2" style="background: #e0e7ff;">Technology</span>
-                        <h2 class="h3">Web Design-er Shera 5-ti Tool</h2>
-                        <p class="text-muted">2024-e web design ke aro shohoj korte nicher tool gulo apnar proyojon...</p>
-                        <a href="#" class="btn btn-link p-0 text-decoration-none fw-bold">Read More →</a>
-                    </div>
-                </div>
-
-                <div class="card mb-4 overflow-hidden" data-aos="fade-up">
-                    <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97" class="card-img-top" alt="post">
-                    <div class="card-body p-4">
-                        <span class="badge bg-soft-success text-success mb-2" style="background: #dcfce7;">Programming</span>
-                        <h2 class="h3">Python Keno Shekha Uchit?</h2>
-                        <p class="text-muted">Data Science theke shuru kore Automation—Python-er proyojoniyota ekhon shobar upore...</p>
-                        <a href="#" class="btn btn-link p-0 text-decoration-none fw-bold">Read More →</a>
+                        <div class="mb-3">
+                            <i class="bi bi-telephone-fill text-primary" style="font-size: 2rem;"></i>
+                        </div>
+                        <h5 class="card-title">Phone</h5>
+                        <p class="card-text text-muted">+880 1234-567890</p>
                     </div>
                 </div>
             </div>
-
-            <div class="col-lg-4">
-                <div class="card p-4 mb-4" data-aos="fade-left">
-                    <h5 class="widget-title">Categories</h5>
-                    <div class="category-list">
-                        <a href="#" class="category-link"><span>Web Design</span> <span class="badge bg-light text-dark">12</span></a>
-                        <a href="#" class="category-link"><span>Gadgets</span> <span class="badge bg-light text-dark">8</span></a>
-                        <a href="#" class="category-link"><span>Mobile Apps</span> <span class="badge bg-light text-dark">5</span></a>
-                        <a href="#" class="category-link"><span>Lifestyle</span> <span class="badge bg-light text-dark">3</span></a>
+            
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card text-center border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <i class="bi bi-envelope-fill text-primary" style="font-size: 2rem;"></i>
+                        </div>
+                        <h5 class="card-title">Email</h5>
+                        <p class="card-text text-muted">info@example.com</p>
                     </div>
                 </div>
-
-                <div class="card p-4 mb-4 sticky-top" style="top: 90px;" data-aos="fade-left">
-                    <h5 class="widget-title">Recent Blogs</h5>
-                    
-                    <a href="#" class="recent-post-item">
-                        <img src="https://picsum.photos/id/1/200" class="recent-post-img" alt="thumb">
-                        <div>
-                            <p class="recent-post-title">Mastering Bootstrap 5</p>
-                            <span class="recent-post-date">Dec 28, 2024</span>
+            </div>
+            
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card text-center border-0 shadow-sm h-100">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <i class="bi bi-geo-alt-fill text-primary" style="font-size: 2rem;"></i>
                         </div>
-                    </a>
+                        <h5 class="card-title">Location</h5>
+                        <p class="card-text text-muted">Dhaka, Bangladesh</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                    <a href="#" class="recent-post-item">
-                        <img src="https://picsum.photos/id/2/200" class="recent-post-img" alt="thumb">
-                        <div>
-                            <p class="recent-post-title">AI Content Writing Tips</p>
-                            <span class="recent-post-date">Dec 25, 2024</span>
-                        </div>
-                    </a>
+        <!-- Contact Form Section -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8" data-aos="fade-up" data-aos-delay="300">
+                <div class="card border-0 shadow-lg">
+                    <div class="card-body p-5">
+                        <h3 class="card-title fw-bold mb-4">Send us a Message</h3>
+                        
+                        <form method="POST" action="">
+                            <div class="mb-4">
+                                <label for="name" class="form-label fw-500">Full Name</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control form-control-md" 
+                                    id="name" 
+                                    name="name"
+                                    placeholder="Your Name"
+                                    required
+                                >
+                            </div>
 
-                    <a href="#" class="recent-post-item">
-                        <img src="https://picsum.photos/id/3/200" class="recent-post-img" alt="thumb">
-                        <div>
-                            <p class="recent-post-title">CSS Grid vs Flexbox</p>
-                            <span class="recent-post-date">Dec 20, 2024</span>
-                        </div>
-                    </a>
+                            <div class="mb-4">
+                                <label for="email" class="form-label fw-500">Email Address</label>
+                                <input 
+                                    type="email" 
+                                    class="form-control form-control-md" 
+                                    id="email" 
+                                    name="email"
+                                    placeholder="your@email.com"
+                                    required
+                                >
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="subject" class="form-label fw-500">Subject</label>
+                                <input 
+                                    type="text" 
+                                    class="form-control form-control-md" 
+                                    id="subject" 
+                                    name="subject"
+                                    placeholder="What is this about?"
+                                    required
+                                >
+                            </div>
+
+                            <div class="mb-4">
+                                <label for="message" class="form-label fw-500">Message</label>
+                                <textarea 
+                                    class="form-control form-control-md" 
+                                    id="message" 
+                                    name="message"
+                                    rows="6"
+                                    placeholder="Your message here..."
+                                    required
+                                ></textarea>
+                            </div>
+
+                            <button 
+                                type="submit" 
+                                class="btn btn-primary btn-md w-100 fw-bold"
+                                style="transition: all 0.3s ease;"
+                                onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 5px 15px rgba(0,123,255,0.3)';"
+                                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';"
+                            >
+                                Send Message
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

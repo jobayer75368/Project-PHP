@@ -52,26 +52,18 @@ switch($request){
     case '/admin/logout':
         require_once __DIR__ ."/backend/logout.php";
         break;
-// bootstrap UI 
-    case '/admin/alerts':
-        require_once __DIR__ ."/backend/includes/bootstrap UI/alerts.php";
+//Categories
+
+    case '/admin/contacts':
+        require_once __DIR__ ."/backend/includes/categories/contact.php";
         break;
-    case '/admin/buttons':
-        require_once __DIR__ ."/backend/includes/bootstrap UI/buttons.php";
+    case '/admin/category':
+        require_once __DIR__ ."/backend/includes/categories/category.php";
         break;
-    case '/admin/dropdowns':
-        require_once __DIR__ ."/backend/includes/bootstrap UI/dropdowns.php";
+    case '/admin/posts':
+        require_once __DIR__ ."/backend/includes/categories/post.php";
         break;
-    case '/admin/modals':
-        require_once __DIR__ ."/backend/includes/bootstrap UI/modals.php";
-        break;
-    case '/admin/popovers':
-        require_once __DIR__ ."/backend/includes/bootstrap UI/popovers.php";
-        break;
-    case '/admin/progress-bar':
-        require_once __DIR__ ."/backend/includes/bootstrap UI/progress-bar.php";
-        break;
-// boostrap UI end
+//Categories end        
 // Forms 
     case '/admin/form-basics':
         require_once __DIR__ ."/backend/includes/Forms/form_basics.php";

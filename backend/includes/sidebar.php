@@ -25,28 +25,24 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Tables</h6>
             <a class="collapse-item" href="/admin/users-tables">Users Tables</a>
-            <a class="collapse-item" href="/admin/datatables">DataTables</a>
             <a class="collapse-item" href="/admin/admin-tables">Admins Tables</a>
           </div>
         </div>
       </li>
       <hr class="sidebar-divider">
-      <div class="sidebar-heading">
-        Examples
-      </div>
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage" aria-expanded="true"
           aria-controls="collapsePage">
           <i class="fas fa-fw fa-columns"></i>
-          <span>Pages</span>
+          <span>Categories</span>
         </a>
         <div id="collapsePage" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Example Pages</h6>
-            <a class="collapse-item" href="/admin/login">Login</a>
+            <a class="collapse-item" href="/admin/login">Catgory</a>
+            <a class="collapse-item" href="/admin/login">Post</a>
+            <a class="collapse-item" href="/admin/contacts">Contacts</a>
           </div>
         </div>
       </li>
       <hr class="sidebar-divider">
-      <div class="version" id="version-ruangadmin"></div>
     </ul>
