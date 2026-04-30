@@ -5,7 +5,7 @@ $email= "";
 $password = "";
 
 $error = [];
-function sanitize($data){
+function sanitize(string $data){
     $data= trim(htmlspecialchars($data));
     return $data;
 }

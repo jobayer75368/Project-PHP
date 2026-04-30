@@ -1,13 +1,13 @@
-<?php require_once __DIR__ ."/../../session.php" ?>
+
 <?php 
-
+require_once __DIR__ ."/../../session.php";
 require_once __DIR__ . "/../db_connection.php";
-
+$contacts = [];
 try{
-  $sql = "SELECT * FROM admins";
+  $sql = "SELECT * FROM contacts";
   $statement = $pdo->prepare($sql);
   $statement->execute();
-  $admins = $statement->fetchAll(PDO::FETCH_ASSOC);
+  $contacts = $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 catch(PDOException $e){
      echo "Error getting Data:".$sql."<br>".$e->getMessage();
@@ -38,20 +38,20 @@ catch(PDOException $e){
          <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Admins Table</h1>
+            <h1 class="h3 mb-0 text-gray-800">Contacts Table</h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="./">Home</a></li>
-              <li class="breadcrumb-item">Tables</li>
-              <li class="breadcrumb-item active" aria-current="page">Admins Tables</li>
+              <li class="breadcrumb-item">Categories</li>
+              <li class="breadcrumb-item active" aria-current="page">Contacts</li>
             </ol>
           </div>
 
           <div class="row">
             <div class="col-lg-12 mb-4">
-              <!-- Admins Tables -->
+              <!-- Contacts Tables -->
               <div class="card">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Admins Tables</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Contacts Table</h6>
                 </div>
                 <div class="table-responsive">
                   <table class="table align-items-center table-flush">
@@ -60,16 +60,20 @@ catch(PDOException $e){
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Subject</th>
+                        <th>Message</th>
                         <th>Created at</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php foreach ($admins as $admin): ?>
+                      <?php foreach($contacts as $contact):?>
                       <tr>
-                        <td> <?php echo $admin['id'] ?></td>
-                        <td> <?php echo $admin['name'] ?></td>
-                        <td> <?php echo $admin['email'] ?></td>
-                        <td> <?php echo $admin['created_at' ]?></td>
+                        <td> <?php echo $contact['id'] ?></td>
+                        <td> <?php echo $contact['name'] ?></td>
+                        <td> <?php echo $contact['email'] ?></td>
+                        <td> <?php echo $contact['subject']?></td>
+                        <td> <?php echo $contact['message']?></td>
+                        <td> <?php echo $contact['created_at' ]?></td>
                       </tr>
                       <?php endforeach; ?>
                     </tbody>
@@ -97,7 +101,7 @@ catch(PDOException $e){
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-                  <a href="login.html" class="btn btn-primary">Logout</a>
+                  <a href="/admin/logout" class="btn btn-primary">Logout</a>
                 </div>
               </div>
             </div>
