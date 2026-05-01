@@ -4,7 +4,7 @@ require_once __DIR__ ."/../../session.php";
 require_once __DIR__ . "/../db_connection.php";
 $contacts = [];
 try{
-  $sql = "SELECT * FROM contacts";
+  $sql = "SELECT * FROM contacts ORDER BY id DESC;";
   $statement = $pdo->prepare($sql);
   $statement->execute();
   $contacts = $statement->fetchAll(PDO::FETCH_ASSOC);

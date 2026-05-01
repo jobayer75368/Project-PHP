@@ -105,8 +105,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <div class="card border-0 shadow-lg">
                 <div class="card-body p-5">
                     
-                        <div class="alert alert-success" role="alert">
-                            <?php echo isset($error)? "Message sent successfully!":""; ?>
+                        <div id="successMsg" class="alert alert-success" role="alert" style="display: none;">
+                            Message sent successfully!
                         </div>
                     <h3 class="card-title fw-bold mb-4">Send us a Message</h3>
 
