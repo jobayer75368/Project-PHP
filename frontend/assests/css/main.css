@@ -64,3 +64,8 @@
             flex-direction: column;
             justify-content: center;
         }
+        .nav-link.active {
+            background-color: #3757e4;
+            color: #fff !important;
+            border-radius: 5px;
+        }
