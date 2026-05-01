@@ -24,19 +24,24 @@ switch($request){
     case '/login':
         require_once __DIR__ . '/backend/user_login.php';
         break;
+//creating new table        
     case '/migration':
         require_once __DIR__ . '/backend/migration.php';
         break;
+//Database connection        
     case '/db_connection':
         require_once __DIR__ . '/backend/includes/db_connection.php';
         break;
-
 
 // admin panel
 // dashboard 
     case '/admin/dashboard':
         require_once __DIR__ ."/backend/dashboard.php";
         break;
+//Admin profile
+    case '/admin/profile':
+        require_once __DIR__ . '/backend/admin_profile.php';
+        break ;      
 // Login 
     case '/admin/login':
             require_once __DIR__ ."/backend/login.php";
