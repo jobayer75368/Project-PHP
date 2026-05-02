@@ -1,21 +1,19 @@
-
-<?php 
-require_once __DIR__ ."/session.php";
+<?php
+require_once __DIR__ . "/session.php";
 require_once __DIR__ . "/includes/db_connection.php";
-$admin=[];
-try{
+$admin = [];
+try {
   $sql = "SELECT * FROM admins WHERE id=:id";
   $statement = $pdo->prepare($sql);
   $statement->execute([
-    ':id' =>1
+    ':id' => 1
   ]);
   $admin = $statement->fetch(PDO::FETCH_ASSOC);
-//   echo "<pre>";
-//   var_dump($admin);
-//   echo "<pre>";
-}
-catch(PDOException $e){
-     echo "Error getting Data:".$sql."<br>".$e->getMessage();
+  //   echo "<pre>";
+  //   var_dump($admin);
+  //   echo "<pre>";
+} catch (PDOException $e) {
+  echo "Error getting Data:" . $sql . "<br>" . $e->getMessage();
 };
 ?>
 
@@ -24,7 +22,7 @@ catch(PDOException $e){
 <!DOCTYPE html>
 <html lang="en">
 
-    <?php require_once __DIR__ ."/includes/head.php" ?>
+<?php require_once __DIR__ . "/includes/head.php" ?>
 
 <body id="page-top">
   <div id="wrapper">
@@ -34,7 +32,7 @@ catch(PDOException $e){
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
         <!-- TopBar -->
-        <?php require_once __DIR__ . "/includes/topbar.php"?>
+        <?php require_once __DIR__ . "/includes/topbar.php" ?>
         <!-- Topbar -->
 
         <!-- Container Fluid-->
@@ -128,7 +126,7 @@ catch(PDOException $e){
                 </div>
               </div>
             </div>
-            
+
           </div>
           <!--Row-->
 
@@ -139,7 +137,7 @@ catch(PDOException $e){
         <!---Container Fluid-->
       </div>
       <!-- Footer -->
-      <?php require_once __DIR__ ."/includes/footer.php" ?>
+      <?php require_once __DIR__ . "/includes/footer.php" ?>
       <!-- Footer -->
     </div>
   </div>
@@ -149,7 +147,7 @@ catch(PDOException $e){
     <i class="fas fa-angle-up"></i>
   </a>
   <!-- js     -->
-  <?php require_once __DIR__ ."/includes/script.php" ?>
+  <?php require_once __DIR__ . "/includes/script.php" ?>
   <!-- js  -->
 </body>
 
