@@ -9,9 +9,6 @@ try {
     ':id' => 1
   ]);
   $admin = $statement->fetch(PDO::FETCH_ASSOC);
-  //   echo "<pre>";
-  //   var_dump($admin);
-  //   echo "<pre>";
 } catch (PDOException $e) {
   echo "Error getting Data:" . $sql . "<br>" . $e->getMessage();
 };
@@ -48,17 +45,37 @@ try {
           <div class="container">
             <!-- Header Card -->
             <div class="card shadow-sm border-0 mb-4 rounded-lg">
-              <div class="card-body d-flex align-items-center">
-                <div class="position-relative">
-                  <img src="img/user.jpg" class="rounded-circle border" alt="Profile" style="width: 100px; height: 100px; object-fit: cover;">
-                  <span class="position-absolute bottom-0 end-0 bg-white rounded-circle p-1 shadow-sm" style="right: 5px; bottom: 5px;">
-                    <i class="fas fa-camera text-success" style="font-size: 0.8rem;"></i>
-                  </span>
+              <div class="card-body d-flex justify-content-between">
+
+                <div class="d-flex align-items-center">
+
+                  <img id="previewImg" src="/backend/assets/img/itadori.png"
+                    class="rounded-circle border border-dark"
+                    width="150" height="150">
+
+                  <div class="ml-4">
+                    <h4 class="font-weight-bold mb-1" style="color: #004d40;"><?php echo $admin['name'] ?></h4>
+                    <p class="text-muted mb-1">Administrator</p>
+                    <p class="text-muted small mb-0"><i class="fas fa-map-marker-alt mr-1"></i> <?php ?></p>
+                  </div>
+
                 </div>
-                <div class="ml-4">
-                  <h4 class="font-weight-bold mb-1" style="color: #004d40;"><?php echo $admin['name'] ?></h4>
-                  <p class="text-muted mb-1">Administrator</p>
-                  <p class="text-muted small mb-0"><i class="fas fa-map-marker-alt mr-1"></i> <?php ?></p>
+
+
+                <div class="d-flex h-50">
+                  <form action="" method="POST">
+                    <input type="file" id="fileUpload" hidden accept="image/*">
+
+                    <!-- Edit Button (shown initially) -->
+                    <label id="editBtn" for="fileUpload"
+                      class="btn btn-outline-secondary btn-sm px-3 w-100 "
+                      style="cursor:pointer;">
+                      Edit<i class="fas fa-pen ml-1" style="font-size: 0.7rem;"></i>
+                    </label>
+
+                    <!-- Save Button (hidden initially) -->
+                    <input id="saveBtn" type="submit" class="btn btn-outline-secondary btn-sm px-3 w-100" style="cursor:pointer; display:none;" value="Save">
+                  </form>
                 </div>
               </div>
             </div>
@@ -148,6 +165,37 @@ try {
   </a>
   <!-- js     -->
   <?php require_once __DIR__ . "/includes/script.php" ?>
+  <script>
+    const fileUpload = document.getElementById('fileUpload');
+    const previewImg = document.getElementById('previewImg');
+    const editBtn = document.getElementById('editBtn');
+    const saveBtn = document.getElementById('saveBtn');
+
+    fileUpload.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function(event) {
+          // Update preview image
+          previewImg.src = event.target.result;
+
+          // Hide edit button, show save button
+          editBtn.style.display = 'none';
+          saveBtn.style.display = 'flex';
+        };
+
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Optional: Reset when you cancel or want to change again
+    saveBtn.addEventListener('click', function(e) {
+      // Your form submission logic here
+      // e.preventDefault() if needed
+    });
+  </script>
   <!-- js  -->
 </body>
 

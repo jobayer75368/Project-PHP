@@ -1,15 +1,15 @@
 <?php
-require_once __DIR__ ."/../../session.php";
+require_once __DIR__ . "/../../session.php";
 
 require_once __DIR__ . "/../db_connection.php";
 
 try {
-    $sql = "SELECT * FROM users";
-    $stmt = $pdo->prepare($sql);
-    $stmt->execute();
-    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  $sql = "SELECT * FROM users";
+  $stmt = $pdo->prepare($sql);
+  $stmt->execute();
+  $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    die("Error fetching users: " . $e->getMessage());
+  die("Error fetching users: " . $e->getMessage());
 }
 ?>
 
@@ -22,7 +22,7 @@ try {
 
 <body id="page-top">
   <div id="wrapper">
-    
+
     <!-- Sidebar -->
     <?php require_once __DIR__ . "/../sidebar.php" ?>
     <!-- Sidebar -->
@@ -62,6 +62,7 @@ try {
                         <th>ID</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Role</th>
                         <th>Status</th>
                         <th>Action</th>
                       </tr>
@@ -74,6 +75,7 @@ try {
                             <td><?= $user['id'] ?></td>
                             <td><?= $user['name'] ?></td>
                             <td><?= $user['email'] ?></td>
+                            <td><?= $user['role'] ?></td>
                             <td>
                               <span class="badge badge-success">
                                 <?= $user['status'] ?>
