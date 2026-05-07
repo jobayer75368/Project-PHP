@@ -88,3 +88,23 @@ require_once __DIR__ . "/includes/db_connection.php";
 // } catch (PDOException $e) {
 //     echo "Error Inserting Data:" . $sql . "<br>" . $e->getMessage();
 // }
+
+// try {
+//     $sql = "ALTER TABLE users
+//     ADD image VARCHAR(255) NULL 
+//     AFTER password";
+//     $statement = $pdo->prepare($sql);
+//     $statement->execute();
+//     echo "Successfull";
+// } catch (PDOException $e) {
+//     echo "Error Inserting Data:" . $sql . "<br>" . $e->getMessage();
+// }
+// try {
+//     $sql = "ALTER TABLE users CHANGE COLUMN image featured_image VARCHAR(255) NULL";
+
+//     $statement = $pdo->prepare($sql);
+//     $statement->execute();
+//     echo "Successful";
+// } catch (PDOException $e) {
+//     echo "Error Altering Data:" . $sql . "<br>" . $e->getMessage();
+// }

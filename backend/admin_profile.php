@@ -1,17 +1,42 @@
 <?php
+
 require_once __DIR__ . "/session.php";
 require_once __DIR__ . "/includes/db_connection.php";
-$admin = [];
-try {
-  $sql = "SELECT * FROM admins WHERE id=:id";
+require_once __DIR__ . "/config.php";
+
+$user = [];
+
+// Upload Image
+if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_FILES['featured_image']['name'])) {
+
+  $fileName = time() . "-" . $_FILES['featured_image']['name'];
+  $targetPath = __DIR__ . "/uploads/" . $fileName;
+  move_uploaded_file($_FILES['featured_image']['tmp_name'], $targetPath);
+  $db_Path = "uploads/" . $fileName;
+  // Update database
+  $sql = "UPDATE users SET featured_image = :featured_image WHERE id = :id";
   $statement = $pdo->prepare($sql);
+  $statement->execute([
+    ':featured_image' => $db_Path,
+    ':id' => 1
+  ]);
+}
+try {
+
+  $sql = "SELECT * FROM users WHERE id = :id";
+
+  $statement = $pdo->prepare($sql);
+
   $statement->execute([
     ':id' => 1
   ]);
-  $admin = $statement->fetch(PDO::FETCH_ASSOC);
+
+  $user = $statement->fetch(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-  echo "Error getting Data:" . $sql . "<br>" . $e->getMessage();
-};
+
+  echo "Error getting data: " . $e->getMessage();
+}
+
 ?>
 
 
@@ -49,12 +74,14 @@ try {
 
                 <div class="d-flex align-items-center">
 
-                  <img id="previewImg" src="/backend/assets/img/itadori.png"
+                  <img
+                    id="previewImg"
+                    src="<?= BASE_URL . $user['featured_image']; ?>"
                     class="rounded-circle border border-dark"
-                    width="150" height="150">
-
+                    width="150"
+                    height="150">
                   <div class="ml-4">
-                    <h4 class="font-weight-bold mb-1" style="color: #004d40;"><?php echo $admin['name'] ?></h4>
+                    <h4 class="font-weight-bold mb-1" style="color: #004d40;"><?php echo $user['name'] ?></h4>
                     <p class="text-muted mb-1">Administrator</p>
                     <p class="text-muted small mb-0"><i class="fas fa-map-marker-alt mr-1"></i> <?php ?></p>
                   </div>
@@ -63,8 +90,8 @@ try {
 
 
                 <div class="d-flex h-50">
-                  <form action="" method="POST">
-                    <input type="file" id="fileUpload" hidden accept="image/*">
+                  <form action="" method="POST" enctype="multipart/form-data">
+                    <input type="file" id="fileUpload" name="featured_image" hidden accept="image/*">
 
                     <!-- Edit Button (shown initially) -->
                     <label id="editBtn" for="fileUpload"
@@ -92,11 +119,11 @@ try {
                 <div class="row">
                   <div class="col-md-4 mb-3">
                     <label class="text-muted small d-block"> Name</label>
-                    <span class="font-weight-bold"><?php echo $admin['name'] ?></span>
+                    <span class="font-weight-bold"><?php echo $user['name'] ?></span>
                   </div>
                   <div class="col-md-4 mb-3">
                     <label class="text-muted small d-block">Email Address</label>
-                    <span class="font-weight-bold"><?php echo $admin['email'] ?></span>
+                    <span class="font-weight-bold"><?php echo $user['email'] ?></span>
                   </div>
                   <div class="col-md-4 mb-3">
                     <label class="text-muted small d-block">User Role</label>

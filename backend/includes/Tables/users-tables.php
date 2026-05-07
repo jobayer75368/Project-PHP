@@ -82,7 +82,7 @@ try {
                               </span>
                             </td>
                             <td>
-                              <a href="#" class="btn btn-sm btn-primary">Detail</a>
+                              <a href="/admin/profile" class="btn btn-sm btn-primary">Detail</a>
                             </td>
                           </tr>
                         <?php endforeach; ?>
