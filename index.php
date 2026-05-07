@@ -62,6 +62,9 @@ switch ($request) {
     case '/admin/contacts':
         require_once __DIR__ . "/backend/includes/categories/contact.php";
         break;
+    case '/admin/contacts/delete':
+        require_once __DIR__ . "/backend/includes/categories/contact_delete.php";
+        break;
     case '/admin/category/list':
         require_once __DIR__ . "/backend/includes/categories/category_list.php";
         break;
@@ -74,10 +77,20 @@ switch ($request) {
     case '/admin/category/delete':
         require_once __DIR__ . "/backend/includes/categories/delete.php";
         break;
-    case '/admin/posts':
-        require_once __DIR__ . "/backend/includes/categories/post.php";
+    //BLOGS
+    case '/admin/blog/list':
+        require_once __DIR__ . "/backend/includes/blogs/blog_list.php";
         break;
-    //Categories end        
+    case '/admin/blog/create':
+        require_once __DIR__ . "/backend/includes/blogs/blog_create.php";
+        break;
+    case '/admin/blog/edit':
+        require_once __DIR__ . "/backend/includes/blogs/blog_edit.php";
+        break;
+    case '/admin/blog/delete':
+        require_once __DIR__ . "/backend/includes/blogs/blog_delete.php";
+        break;
+
     // Forms 
     case '/admin/form-basics':
         require_once __DIR__ . "/backend/includes/Forms/form_basics.php";

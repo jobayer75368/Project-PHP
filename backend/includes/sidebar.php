@@ -25,8 +25,8 @@
     <div id="collapsePost" class="collapse" aria-labelledby="headingPost" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
         <h6 class="collapse-header">Posts</h6>
-        <a class="collapse-item" href="/admin/users-tables">All Posts</a>
-        <a class="collapse-item" href="/admin/admin-tables">Add New</a>
+        <a class="collapse-item" href="/admin/blog/list">Blog List</a>
+        <a class="collapse-item" href="/admin/blog/create">Blog Create</a>
       </div>
     </div>
   </li>

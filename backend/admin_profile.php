@@ -10,7 +10,7 @@ $user = [];
 if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_FILES['featured_image']['name'])) {
 
   $fileName = time() . "-" . $_FILES['featured_image']['name'];
-  $targetPath = __DIR__ . "/uploads/" . $fileName;
+  $targetPath = __DIR__ . "/../uploads" . $fileName;
   move_uploaded_file($_FILES['featured_image']['tmp_name'], $targetPath);
   $db_Path = "/uploads/" . $fileName;
   // Update database
@@ -24,9 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_FILES['featured_image']['n
 try {
 
   $sql = "SELECT * FROM users WHERE id = :id";
-
   $statement = $pdo->prepare($sql);
-
   $statement->execute([
     ':id' => 1
   ]);
@@ -101,7 +99,7 @@ try {
                     </label>
 
                     <!-- Save Button (hidden initially) -->
-                    <input id="saveBtn" type="submit" class="btn btn-outline-secondary btn-sm px-3 w-100" style="cursor:pointer; display:none;" value="Save">
+                    <input id="saveBtn" type="submit" class="btn btn-outline-primary btn-sm px-3 w-100" style="cursor:pointer; display:none;" value="Save">
                   </form>
                 </div>
               </div>

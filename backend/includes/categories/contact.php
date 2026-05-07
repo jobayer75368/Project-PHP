@@ -73,7 +73,8 @@ try {
                           <td> <?php echo $contact['subject'] ?></td>
                           <td> <?php echo $contact['message'] ?></td>
                           <td> <?php echo $contact['created_at'] ?></td>
-                          <td><button class="btn btn-danger"><i class="fas fa-trash"></i></button></td>
+                          <td><a href="/admin/contacts/delete?id=<?php echo $contact['id'] ?>"
+                              onclick="return confirm('Are you sure you want to delete this category?')" class="btn btn-danger p-1"><i class="fa-solid fa-trash text-white"></i></a></td>
                         </tr>
                       <?php endforeach; ?>
                     </tbody>

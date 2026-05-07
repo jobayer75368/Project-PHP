@@ -2,22 +2,22 @@
 
 require_once __DIR__ . "/includes/db_connection.php";
 
-// function createTable(PDO $pdo, string $table, string $sql)
-// {
-//     $statement = $pdo->prepare("SHOW TABLES LIKE :table");
-//     $statement->execute([':table' => $table]);
+function createTable(PDO $pdo, string $table, string $sql)
+{
+    $statement = $pdo->prepare("SHOW TABLES LIKE :table");
+    $statement->execute([':table' => $table]);
 
-//     if (!$statement->fetch()) {
-//         try {
-//             $pdo->exec($sql);
-//             echo "Created Table: $table <br>";
-//         } catch (PDOException $e) {
-//             echo "Error Creating Table $table: " . $e->getMessage() . "<br>";
-//         }
-//     } else {
-//         echo "Table already exists: $table <br>";
-//     }
-// }
+    if (!$statement->fetch()) {
+        try {
+            $pdo->exec($sql);
+            echo "Created Table: $table <br>";
+        } catch (PDOException $e) {
+            echo "Error Creating Table $table: " . $e->getMessage() . "<br>";
+        }
+    } else {
+        echo "Table already exists: $table <br>";
+    }
+}
 
 
 // // USERS TABLE
@@ -131,3 +131,22 @@ require_once __DIR__ . "/includes/db_connection.php";
 // } catch (PDOException $e) {
 //     echo "Error Altering Data:" . $sql . "<br>" . $e->getMessage();
 // }
+
+createTable(
+    $pdo,
+    'blogs',
+    "CREATE TABLE blogs(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    slug  VARCHAR(255) NOT NULL UNIQUE,
+    short_description MEDIUMTEXT NOT NULL,
+    long_description MEDIUMTEXT NOT NULL,
+    featured_image VARCHAR(255) NOT NULL,
+    created_by INT UNSIGNED NULL,
+    status ENUM('draft','pending','published') DEFAULT 'draft',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
+    )"
+);
