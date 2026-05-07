@@ -4,12 +4,12 @@ require_once __DIR__ . "/../../session.php";
 require_once __DIR__ . "/../db_connection.php";
 
 try {
-    $sql = "SELECT * FROM users";
+    $sql = "SELECT * FROM categories ORDER BY created_at DESC";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
-    $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    die("Error fetching users: " . $e->getMessage());
+    die("Error fetching categories: " . $e->getMessage());
 }
 ?>
 
@@ -66,28 +66,28 @@ try {
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
-
                                         <tbody>
-                                            <?php if (!empty($users)): ?>
-                                                <?php foreach ($users as $user): ?>
+                                            <?php if (!empty($categories)): ?>
+                                                <?php foreach ($categories as $category): ?>
                                                     <tr>
-                                                        <td><?= $user['id'] ?></td>
-                                                        <td><?= $user['name'] ?></td>
-                                                        <td><?= $user['email'] ?></td>
-                                                        <td><?= $user['role'] ?></td>
+                                                        <td><?= $category['id'] ?></td>
+                                                        <td><?= $category['name'] ?></td>
+                                                        <td><?= $category['slug'] ?></td>
                                                         <td>
-                                                            <span class="badge badge-success">
-                                                                <?= $user['status'] ?>
+                                                            <span class="badge <?= ($category['status'] == 0) ? 'badge-danger' : 'badge-success'; ?> ">
+                                                                <?= $category['status'] == 0 ? 'Inactive' : 'Active'; ?>
                                                             </span>
                                                         </td>
-                                                        <td>
-                                                            <a href="/admin/profile" class="btn btn-sm btn-primary">Detail</a>
+                                                        <td class="">
+                                                            <a href="/admin/category/edit?id=<?php echo $category['id']; ?>" class="btn btn-primary p-1 mr-1"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                            <a href="/admin/category/delete?id=<?php echo $category['id'] ?>"
+                                                                onclick="return confirm('Are you sure you want to delete this category?')" class="btn btn-danger p-1"><i class="fa-solid fa-trash text-white"></i></a>
                                                         </td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             <?php else: ?>
                                                 <tr>
-                                                    <td colspan="5" class="text-center">No users found</td>
+                                                    <td colspan="5" class="text-center">No Categories found</td>
                                                 </tr>
                                             <?php endif; ?>
                                         </tbody>

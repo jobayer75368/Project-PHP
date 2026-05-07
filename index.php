@@ -68,6 +68,12 @@ switch ($request) {
     case '/admin/category/create':
         require_once __DIR__ . "/backend/includes/categories/create_category.php";
         break;
+    case '/admin/category/edit':
+        require_once __DIR__ . "/backend/includes/categories/edit_category.php";
+        break;
+    case '/admin/category/delete':
+        require_once __DIR__ . "/backend/includes/categories/delete.php";
+        break;
     case '/admin/posts':
         require_once __DIR__ . "/backend/includes/categories/post.php";
         break;
