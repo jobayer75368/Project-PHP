@@ -1,17 +1,16 @@
-<?php 
+<?php
 
 // Connecting Database 
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname= "my_database";
+$dbname = "my_database";
 
-try{
-    $pdo = new PDO ("mysql:host=$servername;dbname=$dbname", $username, $password);
+try {
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
-catch (\Throwable $th){
-    echo "Connection failed!" .$th->getMessage();
+} catch (\Throwable $th) {
+    echo "Connection failed!" . $th->getMessage();
 }
 
 
@@ -69,5 +68,3 @@ catch (\Throwable $th){
 // }catch(PDOException $e){
 //     echo "Error Updating Data:".$sql."<br>".$e->getMessage();
 // }
-
-

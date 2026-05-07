@@ -1,16 +1,14 @@
-
-<?php 
-require_once __DIR__ ."/../../session.php";
+<?php
+require_once __DIR__ . "/../../session.php";
 require_once __DIR__ . "/../db_connection.php";
 $contacts = [];
-try{
+try {
   $sql = "SELECT * FROM contacts ORDER BY id DESC;";
   $statement = $pdo->prepare($sql);
   $statement->execute();
   $contacts = $statement->fetchAll(PDO::FETCH_ASSOC);
-}
-catch(PDOException $e){
-     echo "Error getting Data:".$sql."<br>".$e->getMessage();
+} catch (PDOException $e) {
+  echo "Error getting Data:" . $sql . "<br>" . $e->getMessage();
 };
 ?>
 
@@ -19,30 +17,30 @@ catch(PDOException $e){
 <html lang="en">
 
 <!-- head  -->
- <?php require_once __DIR__ . "/../head.php" ?>
- <!-- head  -->
- 
- <body id="page-top">
-   <div id="wrapper">
-     <!-- Sidebar -->
-     
-     <?php require_once __DIR__ . "/../sidebar.php" ?>
-     <!-- Sidebar -->
-     <div id="content-wrapper" class="d-flex flex-column">
-       <div id="content">
-         <!-- TopBar -->
-         <?php require_once __DIR__ . "/../topbar.php" ?>
-         
-         <!-- Topbar -->
-         
-         <!-- Container Fluid-->
+<?php require_once __DIR__ . "/../head.php" ?>
+<!-- head  -->
+
+<body id="page-top">
+  <div id="wrapper">
+    <!-- Sidebar -->
+
+    <?php require_once __DIR__ . "/../sidebar.php" ?>
+    <!-- Sidebar -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <!-- TopBar -->
+        <?php require_once __DIR__ . "/../topbar.php" ?>
+
+        <!-- Topbar -->
+
+        <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Contacts Table</h1>
+            <h1 class="h3 mb-0 text-gray-800">Contacts Mange</h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="./">Home</a></li>
               <li class="breadcrumb-item">Categories</li>
-              <li class="breadcrumb-item active" aria-current="page">Contacts</li>
+              <li class="breadcrumb-item active" aria-current="page">Contact List</li>
             </ol>
           </div>
 
@@ -51,7 +49,7 @@ catch(PDOException $e){
               <!-- Contacts Tables -->
               <div class="card">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Contacts Table</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Contact list</h6>
                 </div>
                 <div class="table-responsive">
                   <table class="table align-items-center table-flush">
@@ -62,19 +60,21 @@ catch(PDOException $e){
                         <th>Email</th>
                         <th>Subject</th>
                         <th>Message</th>
-                        <th>Created at</th>
+                        <th>Time</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php foreach($contacts as $contact):?>
-                      <tr>
-                        <td> <?php echo $contact['id'] ?></td>
-                        <td> <?php echo $contact['name'] ?></td>
-                        <td> <?php echo $contact['email'] ?></td>
-                        <td> <?php echo $contact['subject']?></td>
-                        <td> <?php echo $contact['message']?></td>
-                        <td> <?php echo $contact['created_at' ]?></td>
-                      </tr>
+                      <?php foreach ($contacts as $contact): ?>
+                        <tr>
+                          <td> <?php echo $contact['id'] ?></td>
+                          <td> <?php echo $contact['name'] ?></td>
+                          <td> <?php echo $contact['email'] ?></td>
+                          <td> <?php echo $contact['subject'] ?></td>
+                          <td> <?php echo $contact['message'] ?></td>
+                          <td> <?php echo $contact['created_at'] ?></td>
+                          <td><button class="btn btn-danger"><i class="fas fa-trash"></i></button></td>
+                        </tr>
                       <?php endforeach; ?>
                     </tbody>
                   </table>
@@ -112,7 +112,7 @@ catch(PDOException $e){
       </div>
       <!-- Footer -->
       <?php require_once __DIR__ . "/../footer.php" ?>
-      
+
       <!-- footer  -->
     </div>
   </div>

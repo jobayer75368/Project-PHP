@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_FILES['featured_image']['n
   $fileName = time() . "-" . $_FILES['featured_image']['name'];
   $targetPath = __DIR__ . "/uploads/" . $fileName;
   move_uploaded_file($_FILES['featured_image']['tmp_name'], $targetPath);
-  $db_Path = "uploads/" . $fileName;
+  $db_Path = "/uploads/" . $fileName;
   // Update database
   $sql = "UPDATE users SET featured_image = :featured_image WHERE id = :id";
   $statement = $pdo->prepare($sql);

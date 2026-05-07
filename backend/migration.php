@@ -108,3 +108,26 @@ require_once __DIR__ . "/includes/db_connection.php";
 // } catch (PDOException $e) {
 //     echo "Error Altering Data:" . $sql . "<br>" . $e->getMessage();
 // }
+
+
+// try {
+//     $sql = "ALTER TABLE users
+//             MODIFY role VARCHAR(50) NOT NULL DEFAULT 'subscriber';";
+//     $statement = $pdo->prepare($sql);
+//     $statement->execute();
+//     echo "Successful";
+// } catch (PDOException $e) {
+//     echo "Error Altering Data:" . $sql . "<br>" . $e->getMessage();
+// }
+
+//UPDATE CONTACTS
+
+// try {
+//     $sql = "ALTER TABLE contacts
+//             DROP COLUMN status";
+//     $statement = $pdo->prepare($sql);
+//     $statement->execute();
+//     echo "Successful";
+// } catch (PDOException $e) {
+//     echo "Error Altering Data:" . $sql . "<br>" . $e->getMessage();
+// }

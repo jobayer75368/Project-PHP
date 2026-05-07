@@ -19,8 +19,8 @@
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePost" aria-expanded="true"
       aria-controls="collapsePost">
-      <i class="fas fa-fw fa-envelope"></i>
-      <span>Posts</span>
+      <i class="fas fa-fw fa-blog"></i>
+      <span>Blog Manage</span>
     </a>
     <div id="collapsePost" class="collapse" aria-labelledby="headingPost" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
@@ -34,11 +34,12 @@
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategories" aria-expanded="true"
       aria-controls="collapseCategories">
       <i class="fas fa-fw fa-layer-group"></i>
-      <span>Categories</span>
+      <span>Category Manage</span>
     </a>
     <div id="collapseCategories" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
-        <a class="collapse-item" href="/admin/login">Categories Table</a>
+        <a class="collapse-item" href="/admin/category/list">Category List</a>
+        <a class="collapse-item" href="/admin/category/create">Create Category</a>
       </div>
     </div>
   </li>
@@ -47,11 +48,11 @@
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseContact" aria-expanded="true"
       aria-controls="collapseContact">
       <i class="fas fa-fw fa-address-book"></i>
-      <span>Contacts</span>
+      <span>Contact Mange</span>
     </a>
     <div id="collapseContact" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
-        <a class="collapse-item" href="/admin/contacts">Contacts Table</a>
+        <a class="collapse-item" href="/admin/contacts">Contact List</a>
       </div>
     </div>
   </li>
@@ -59,7 +60,7 @@
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUsers" aria-expanded="true"
       aria-controls="collapseUsers">
       <i class="fas fa-fw fa-users"></i>
-      <span>Users</span>
+      <span>Users Manage</span>
     </a>
     <div id="collapseUsers" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
