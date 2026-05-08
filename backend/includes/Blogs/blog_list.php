@@ -77,11 +77,25 @@ try {
                                                         <td><?= $blog['title'] ?></td>
                                                         <td><?= $blog['slug'] ?></td>
                                                         <td>
-                                                            <img class=" rounded" src="<?php echo isset($blog['featured_image']) ? $blog['featured_image'] : '/frontend/assests/images/no-image.png'; ?>?>" alt="" height="80"
-                                                                </td>
+                                                            <img
+                                                                class="rounded"
+                                                                src="<?= !empty($blog['featured_image'])
+                                                                            ? $blog['featured_image']
+                                                                            : '/frontend/assests/images/no-image.png'; ?>"
+                                                                height="80">
+                                                        </td>
                                                         <td>
-                                                            <span class="badge <?= ($blog['status'] == 0) ? 'badge-danger' : 'badge-success'; ?> ">
-                                                                <?= $blog['status'] == 0 ? 'Inactive' : 'Active'; ?>
+                                                            <?php
+                                                            $statusClass = match ($blog['status']) {
+                                                                'draft' => 'badge-secondary',
+                                                                'pending' => 'badge-warning',
+                                                                'published' => 'badge-success',
+                                                                default => 'badge-dark'
+                                                            };
+                                                            ?>
+
+                                                            <span class="badge <?= $statusClass; ?>">
+                                                                <?= ucfirst($blog['status']); ?>
                                                             </span>
                                                         </td>
                                                         <td class="">

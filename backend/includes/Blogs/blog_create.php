@@ -46,10 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($_FILES['featured_image']['name'])) {
 
         $fileName = time() . "-" . $_FILES['featured_image']['name'];
-        $targetPath = __DIR__ . "/../../../uploads/" . $fileName;
+        $targetPath = __DIR__ . "/../../uploads/" . $fileName;
+
         move_uploaded_file($_FILES['featured_image']['tmp_name'], $targetPath);
-        $db_Path = "/uploads/" . $fileName;
-        $featured_image = $db_Path;
+
+        $featured_image = BASE_URL . "uploads/" . $fileName;
     }
 
     if (empty($errors)) {
@@ -120,15 +121,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </div>
                                         <div class="form-group">
                                             <label for="short_description">Short Description</label>
-                                            <textarea class="form-control" id="short_description" name="short_description" aria-describedby="short_description"><?php echo $short_description ?>
-                                                </textarea>
+                                            <textarea class="form-control" id="short_description" name="short_description"><?= $short_description ?></textarea>
 
                                             <p class="text-danger"><?php echo isset($errors['short_description']) ? $errors['short_description'] : ""; ?></p>
                                         </div>
                                         <div class="form-group">
                                             <label for="long_description">Long Description</label>
-                                            <textarea class="form-control" id="long_Description" name="long_description" aria-describedby="long_description"><?php echo $long_description; ?>
-                                            </textarea>
+                                            <textarea class="form-control" id="long_description" name="long_description"><?= $short_description ?></textarea>
 
                                             <p class="text-danger"><?php echo isset($errors['long_description']) ? $errors['long_description'] : ""; ?></p>
                                         </div>

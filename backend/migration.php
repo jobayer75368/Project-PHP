@@ -132,21 +132,53 @@ function createTable(PDO $pdo, string $table, string $sql)
 //     echo "Error Altering Data:" . $sql . "<br>" . $e->getMessage();
 // }
 
-createTable(
-    $pdo,
-    'blogs',
-    "CREATE TABLE blogs(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    slug  VARCHAR(255) NOT NULL UNIQUE,
-    short_description MEDIUMTEXT NOT NULL,
-    long_description MEDIUMTEXT NOT NULL,
-    featured_image VARCHAR(255) NOT NULL,
-    created_by INT UNSIGNED NULL,
-    status ENUM('draft','pending','published') DEFAULT 'draft',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+// createTable(
+//     $pdo,
+//     'blogs',
+//     "CREATE TABLE blogs(
+//     id INT AUTO_INCREMENT PRIMARY KEY,
+//     title VARCHAR(255) NOT NULL,
+//     slug  VARCHAR(255) NOT NULL UNIQUE,
+//     short_description MEDIUMTEXT NOT NULL,
+//     long_description MEDIUMTEXT NOT NULL,
+//     featured_image VARCHAR(255) NOT NULL,
+//     created_by INT UNSIGNED NULL,
+//     status ENUM('draft','pending','published') DEFAULT 'draft',
+//     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+//     updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
 
-    FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
-    )"
-);
+//     FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE SET NULL
+//     )"
+// );
+// createTable(
+//     $pdo,
+//     'comments',
+//     "CREATE TABLE comments(
+//         id INT AUTO_INCREMENT PRIMARY KEY,
+//         blog_id INT NOT NULL,
+//         name VARCHAR(255) NOT NULL,
+//         comment TEXT NOT NULL,
+//         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+//         FOREIGN KEY (blog_id)
+//         REFERENCES blogs(id)
+//         ON DELETE CASCADE
+//     )"
+// );
+try {
+
+    $sql = "ALTER TABLE blogs
+            ADD category_id INT UNSIGNED NULL,
+            ADD CONSTRAINT fk_blog_category
+            FOREIGN KEY (category_id)
+            REFERENCES categories(id)
+            ON DELETE SET NULL";
+
+    $statement = $pdo->prepare($sql);
+    $statement->execute();
+
+    echo 'Successful';
+} catch (PDOException $e) {
+
+    echo 'Error: ' . $e->getMessage();
+}

@@ -109,6 +109,14 @@ switch ($request) {
     case '/admin/admin-tables':
         require_once __DIR__ . "/backend/includes/Tables/admin-tables.php";
         break;
+    case (preg_match('#^/blog/([a-zA-Z0-9-]+)$#', $request, $matches) ? true : false):
+        $_GET['slug'] = $matches[1];
+        require_once __DIR__ . '/frontend/single_blog.php';
+        break;
+    case (preg_match('#^/category/([a-zA-Z0-9-]+)$#', $request, $matches) ? true : false):
+        $_GET['slug'] = $matches[1];
+        require_once __DIR__ . '/frontend/category.php';
+        break;
     // Tables end  
     default:
         http_response_code(404);

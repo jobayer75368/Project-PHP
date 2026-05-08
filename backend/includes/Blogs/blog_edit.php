@@ -55,11 +55,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!empty($_FILES['featured_image']['name'])) {
 
+        // delete old image
+        if (!empty($blog['featured_image'])) {
+
+            $oldImagePath = __DIR__ . "/../../../" . ltrim($blog['featured_image'], '/');
+
+            if (file_exists($oldImagePath)) {
+                unlink($oldImagePath);
+            }
+        }
         $fileName = time() . "-" . $_FILES['featured_image']['name'];
-        $targetPath = __DIR__ . "/../../../uploads/" . $fileName;
+        $targetPath = __DIR__ . "/../../uploads/" . $fileName;
         move_uploaded_file($_FILES['featured_image']['tmp_name'], $targetPath);
-        $db_Path = "/uploads/" . $fileName;
-        $featured_image = $db_Path;
+        $featured_image = BASE_URL . "uploads/" . $fileName;
     }
 
     if (empty($errors)) {
@@ -99,11 +107,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="container-fluid" id="container-wrapper">
 
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Create Blog</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Edit Blog</h1>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
                             <li class="breadcrumb-item">Blog Manage</li>
-                            <li class="breadcrumb-item active" aria-current="page"> Create Blog</li>
+                            <li class="breadcrumb-item active" aria-current="page"> Edit Blog</li>
                         </ol>
                     </div>
 
