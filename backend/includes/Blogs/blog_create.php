@@ -47,16 +47,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $fileName = time() . "-" . $_FILES['featured_image']['name'];
         $targetPath = __DIR__ . "/../../uploads/" . $fileName;
-
         move_uploaded_file($_FILES['featured_image']['tmp_name'], $targetPath);
-
         $featured_image = BASE_URL . "uploads/" . $fileName;
     }
 
     if (empty($errors)) {
         $sql = "INSERT INTO blogs (title, slug, short_description, long_description,featured_image, status, created_by)
                     VALUES (?,?,?,?,?,?,?)";
-
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$title, $slug, $short_description, $long_description, $featured_image, $status, $created_by]);
         header("Location: /admin/blog/list");
@@ -75,11 +72,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <body id="page-top">
     <div id="wrapper">
-
         <!-- Sidebar -->
         <?php require_once __DIR__ . "/../sidebar.php" ?>
         <!-- Sidebar -->
-
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
 
@@ -101,9 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <div class="row">
                         <div class="col-lg-12 mb-4">
-
                             <div class="card">
-
                                 <div class="table-responsive p-3">
                                     <form action="" method="post" autocomplete="off" enctype="multipart/form-data">
                                         <div class="form-group mb-3">
@@ -112,7 +105,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                             <p class="text-danger"><?php echo isset($errors['title']) ? $errors['title'] : ""; ?></p>
                                         </div>
-
                                         <div class="form-group">
                                             <label for="slug">Slug</label>
                                             <input type="text" class="form-control" id="slug" name="slug" aria-describedby="slug" placeholder="Enter Slug" value="<?php echo $slug ?>">
@@ -131,7 +123,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                             <p class="text-danger"><?php echo isset($errors['long_description']) ? $errors['long_description'] : ""; ?></p>
                                         </div>
-
                                         <div class="form-group">
                                             <label for="featured_image">Featured Image</label>
                                             <input type="file" class="form-control" id="featured_image" name="featured_image" aria-describedby="featured_image" placeholder="Enter Featured image" value="<?php echo $featured_image ?>">
@@ -153,14 +144,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 </div>
                                 <div class="card-footer"></div>
                             </div>
-
                         </div>
                     </div>
-
                 </div>
                 <!---Container Fluid-->
             </div>
-
             <!-- Footer -->
             <?php require_once __DIR__ . "/../footer.php" ?>
             <!-- footer -->

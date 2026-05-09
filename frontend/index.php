@@ -15,10 +15,8 @@ $stmt->execute();
 $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 //categories
 $categorySql = "SELECT * FROM categories ORDER BY id DESC";
-
 $categoryStmt = $pdo->prepare($categorySql);
 $categoryStmt->execute();
-
 $categories = $categoryStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -27,9 +25,7 @@ $categories = $categoryStmt->fetchAll(PDO::FETCH_ASSOC);
 <?php require_once __DIR__ . "/includes/head.php" ?>
 
 <body>
-
     <?php require_once __DIR__ . "/includes/navbar.php" ?>
-
     <?php require_once __DIR__ . "/includes/header.php" ?>
 
     <div class="container">
@@ -90,32 +86,23 @@ $categories = $categoryStmt->fetchAll(PDO::FETCH_ASSOC);
                     <h5 class="widget-title">Recent Blogs</h5>
 
                     <?php if (!empty($blogs)): ?>
-
                         <?php foreach ($blogs as $blog): ?>
-
                             <a href="/blog/<?= $blog['slug']; ?>" class="recent-post-item">
-
                                 <img
                                     src="<?= $blog['featured_image']; ?>"
                                     class="recent-post-img"
                                     alt="<?= htmlspecialchars($blog['title']); ?>">
-
                                 <div>
-
                                     <p class="recent-post-title">
                                         <?= htmlspecialchars($blog['title']); ?>
                                     </p>
-
                                     <span class="recent-post-date">
                                         <?= date('M d, Y', strtotime($blog['created_at'])); ?>
                                     </span>
-
                                 </div>
 
                             </a>
-
                         <?php endforeach; ?>
-
                     <?php endif; ?>
                 </div>
             </div>
