@@ -14,10 +14,18 @@ $stmt->execute();
 
 $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 //categories
-$categorySql = "SELECT * FROM categories ORDER BY id DESC";
+$categorySql = "SELECT categories.*,
+                COUNT(blogs.id) AS total_posts
+                FROM categories
+                LEFT JOIN blogs
+                ON categories.id = blogs.category_id
+                AND blogs.status = 'published'
+                GROUP BY categories.id
+                ORDER BY categories.id DESC";
 $categoryStmt = $pdo->prepare($categorySql);
 $categoryStmt->execute();
 $categories = $categoryStmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
@@ -74,6 +82,9 @@ $categories = $categoryStmt->fetchAll(PDO::FETCH_ASSOC);
                                     <span>
                                         <?= htmlspecialchars($category['name']); ?>
                                     </span>
+                                    <span>
+                                        <?= $category['total_posts']; ?>
+                                    </span>
                                 </a>
                             <?php endforeach; ?>
                         <?php else: ?>
@@ -100,7 +111,6 @@ $categories = $categoryStmt->fetchAll(PDO::FETCH_ASSOC);
                                         <?= date('M d, Y', strtotime($blog['created_at'])); ?>
                                     </span>
                                 </div>
-
                             </a>
                         <?php endforeach; ?>
                     <?php endif; ?>
