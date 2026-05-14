@@ -1,10 +1,10 @@
 <?php
 require_once __DIR__ . "/../backend/includes/db_connection.php";
 
-$sql = "SELECT blogs.*, categories.name AS category_name
+$sql = "SELECT blogs.*, categories.name AS category_name, users.name AS posted_by
         FROM blogs
-        LEFT JOIN categories
-        ON blogs.category_id = categories.id
+        LEFT JOIN categories ON blogs.category_id = categories.id
+        LEFT JOIN users ON blogs.created_by = users.id
         WHERE blogs.status='published'
         ORDER BY blogs.created_at DESC
         LIMIT 3";
@@ -21,7 +21,7 @@ $categorySql = "SELECT categories.*,
                 ON categories.id = blogs.category_id
                 AND blogs.status = 'published'
                 GROUP BY categories.id
-                ORDER BY categories.id DESC";
+                ORDER BY categories.name ASC";
 $categoryStmt = $pdo->prepare($categorySql);
 $categoryStmt->execute();
 $categories = $categoryStmt->fetchAll(PDO::FETCH_ASSOC);
@@ -42,8 +42,12 @@ $categories = $categoryStmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php if (!empty($blogs)): ?>
                     <?php foreach ($blogs as $blog): ?>
                         <div class="card mb-4 overflow-hidden" data-aos="fade-up">
-                            <img
-                                src="<?= $blog['featured_image']; ?>"
+                            <div class="mx-4 mt-3">
+                                <h2><?= ($blog['title']); ?></h2>
+                                <p><span><?= $blog['created_at'] ?></span><span> || <?= $blog['posted_by'] ?></span></p>
+                            </div>
+                            <img class="w-5"
+                                src="<?php echo !empty($blog['featured_image']) ? $blog['featured_image'] : '/frontend/assests/images/no-image.png'; ?>"
                                 class="card-img-top"
                                 alt="<?= htmlspecialchars($blog['title']); ?>">
                             <div class="card-body p-4">
@@ -52,10 +56,10 @@ $categories = $categoryStmt->fetchAll(PDO::FETCH_ASSOC);
                                     <?= htmlspecialchars($blog['category_name'] ?? 'Uncategorized'); ?>
                                 </span>
                                 <h2 class="h3">
-                                    <?= ($blog['title']); ?>
+                                    <?= ($blog['short_description']); ?>
                                 </h2>
                                 <p class="text-muted">
-                                    <?= ($blog['short_description']); ?>
+                                    <?= ($blog['long_description']); ?>
                                 </p>
                                 <a href="/blog/<?= $blog['slug']; ?>" class="btn btn-link p-0 text-decoration-none fw-bold">
                                     Read More →
@@ -80,7 +84,7 @@ $categories = $categoryStmt->fetchAll(PDO::FETCH_ASSOC);
                                 <a href="/category/<?= $category['slug']; ?>"
                                     class="category-link">
                                     <span>
-                                        <?= htmlspecialchars($category['name']); ?>
+                                        <?= ($category['name']); ?>
                                     </span>
                                     <span>
                                         <?= $category['total_posts']; ?>
@@ -100,7 +104,7 @@ $categories = $categoryStmt->fetchAll(PDO::FETCH_ASSOC);
                         <?php foreach ($blogs as $blog): ?>
                             <a href="/blog/<?= $blog['slug']; ?>" class="recent-post-item">
                                 <img
-                                    src="<?= $blog['featured_image']; ?>"
+                                    src="<?php echo !empty($blog['featured_image']) ? $blog['featured_image'] : '/frontend/assests/images/no-image.png'; ?>"
                                     class="recent-post-img"
                                     alt="<?= htmlspecialchars($blog['title']); ?>">
                                 <div>

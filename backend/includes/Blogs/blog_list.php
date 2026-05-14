@@ -4,9 +4,10 @@ require_once __DIR__ . "/../../session.php";
 require_once __DIR__ . "/../db_connection.php";
 require_once __DIR__ . "/../../config.php";
 
-
 try {
-    $sql = "SELECT * FROM blogs ORDER BY created_at DESC";
+    $sql = "SELECT blogs.*, users.name AS posted_by
+    FROM blogs
+    JOIN users ON blogs.created_by = users.id";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
     $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -65,6 +66,7 @@ try {
                                                 <th>Slug</th>
                                                 <th>Image</th>
                                                 <th>Status</th>
+                                                <th>Poste By</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -97,6 +99,7 @@ try {
                                                                 <?= ucfirst($blog['status']); ?>
                                                             </span>
                                                         </td>
+                                                        <td><?= $blog['posted_by'] ?></td>
                                                         <td class="">
                                                             <a href="/admin/blog/edit?id=<?php echo $blog['id']; ?>" class="btn btn-primary p-1 mr-1"><i class="fa-solid fa-pen-to-square"></i></a>
                                                             <a href="/admin/blog/delete?id=<?php echo $blog['id'] ?>"

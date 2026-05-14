@@ -5,7 +5,7 @@ require_once __DIR__ . "/../../config.php";
 
 $title = $slug = $short_description = $long_description = $featured_image = $status = "";
 $errors = [];
-$created_by = $_SESSION['user_id'];
+$created_by = $_SESSION['user_name'];
 function sanitize(string $data)
 {
     $data = trim(htmlspecialchars($data));

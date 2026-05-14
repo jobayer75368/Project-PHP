@@ -3,7 +3,7 @@
     <div class="sidebar-brand-icon">
       <img src="/backend/assets/img/logo/logo2.png">
     </div>
-    <div class="sidebar-brand-text mx-3">RuangAdmin</div>
+    <div class="sidebar-brand-text mx-3">BLOGGER</div>
   </a>
   <hr class="sidebar-divider my-0">
   <li class="nav-item active">

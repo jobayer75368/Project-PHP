@@ -53,7 +53,7 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             data-aos="fade-up">
 
                             <img
-                                src="<?= $blog['featured_image']; ?>"
+                                src="<?php echo !empty($blog['featured_image']) ? $blog['featured_image'] : '/frontend/assests/images/no-image.png'; ?>"
                                 class="card-img-top"
                                 style="height: 230px; object-fit: cover;"
                                 alt="<?= htmlspecialchars($blog['title']); ?>">

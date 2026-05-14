@@ -4,8 +4,10 @@ require_once __DIR__ . "/../backend/config.php";
 
 $slug = $_GET['slug'] ?? '';
 
-// Fetch single blog
-$sql = "SELECT * FROM blogs WHERE slug=? AND status='published' LIMIT 1";
+$sql = "SELECT blogs.*, users.name AS posted_by
+FROM blogs
+LEFT JOIN users ON blogs.created_by = users.id
+WHERE slug=? AND blogs.status='published' LIMIT 1";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$slug]);
 
@@ -87,6 +89,8 @@ $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <p class="text-muted mb-4">
                             Posted on
                             <?= date('F d, Y', strtotime($blog['created_at'])); ?>
+                            by
+                            <?= $blog['posted_by']; ?>
                         </p>
                         <p class="lead text-muted">
                             <?= nl2br(htmlspecialchars($blog['short_description'])); ?>
