@@ -64,7 +64,7 @@
     </a>
     <div id="collapseUsers" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
       <div class="bg-white py-2 collapse-inner rounded">
-        <a class="collapse-item" href="/admin/users-tables">Users Table</a>
+        <a class="collapse-item" href="/admin/users/list">Users Table</a>
       </div>
     </div>
   </li>

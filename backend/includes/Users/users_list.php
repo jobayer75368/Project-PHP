@@ -77,11 +77,12 @@ try {
                             <td><?= $user['email'] ?></td>
                             <td><?= $user['role'] ?></td>
                             <td>
-                              <span class="badge badge-success">
-                                <?= $user['status'] ?>
+                              <span class="badge <?= ($user['status'] == 'inactive') ? 'badge-danger' : 'badge-success'; ?> ">
+                                <?= $user['status'] == 'inactive' ? 'Inactive' : 'Active'; ?>
                               </span>
                             </td>
                             <td>
+                              <a href="/admin/users/edit?id=<?php echo $user['id']; ?>" class="btn btn-primary p-1 mr-1"><i class="fa-solid fa-pen-to-square"></i></a>
                               <a href="/admin/profile" class="btn btn-sm btn-primary">Detail</a>
                             </td>
                           </tr>

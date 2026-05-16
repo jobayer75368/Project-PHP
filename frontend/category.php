@@ -66,7 +66,7 @@ $blogs = $blogStmt->fetchAll(PDO::FETCH_ASSOC);
                                 </h4>
 
                                 <p class="text-muted">
-                                    <?= htmlspecialchars($blog['short_description']); ?>
+                                    <?= substr(htmlspecialchars($blog['short_description']), 0, 50); ?>
                                 </p>
                                 <div class="mt-3">
                                     <small class="text-muted d-block mb-2">

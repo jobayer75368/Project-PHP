@@ -56,10 +56,10 @@ $categories = $categoryStmt->fetchAll(PDO::FETCH_ASSOC);
                                     <?= htmlspecialchars($blog['category_name'] ?? 'Uncategorized'); ?>
                                 </span>
                                 <h2 class="h3">
-                                    <?= ($blog['short_description']); ?>
+                                    <?= substr($blog['long_description'], 0, 60) ?>....
                                 </h2>
                                 <p class="text-muted">
-                                    <?= ($blog['long_description']); ?>
+                                    <?= substr($blog['short_description'], 0, 260) ?>....
                                 </p>
                                 <a href="/blog/<?= $blog['slug']; ?>" class="btn btn-link p-0 text-decoration-none fw-bold">
                                     Read More →

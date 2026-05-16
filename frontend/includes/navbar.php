@@ -14,7 +14,7 @@ $currentPage = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
                     <a class="nav-link link-primary <?php if ($currentPage == '') echo 'active'; ?>" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link link-primary <?php if ($currentPage == 'articles') echo 'active'; ?>" href="/articles">Blogs</a>
+                    <a class="nav-link link-primary <?php if ($currentPage == 'blogs') echo 'active'; ?>" href="/blogs">Blogs</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link link-primary <?php if ($currentPage == 'about') echo 'active'; ?>" href="/about">About</a>

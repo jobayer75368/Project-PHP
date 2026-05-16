@@ -68,7 +68,7 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 </h4>
 
                                 <p class="text-muted flex-grow-1">
-                                    <?= htmlspecialchars($blog['short_description']); ?>
+                                    <?= substr(htmlspecialchars($blog['short_description']), 0, 50); ?>
                                 </p>
 
                                 <div class="mt-3">

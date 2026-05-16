@@ -9,8 +9,8 @@ switch ($request) {
     case '/about':
         require_once __DIR__ . '/frontend/about.php';
         break;
-    case '/articles':
-        require_once __DIR__ . '/frontend/articles.php';
+    case '/blogs':
+        require_once __DIR__ . '/frontend/blogs.php';
         break;
     case '/contact':
         require_once __DIR__ . '/frontend/contact.php';
@@ -102,15 +102,13 @@ switch ($request) {
     // Blogs end
 
     // Tables 
-    case '/admin/users-tables':
-        require_once __DIR__ . "/backend/includes/Tables/users-tables.php";
+    case '/admin/users/list':
+        require_once __DIR__ . "/backend/includes/Users/users_list.php";
         break;
-    case '/admin/datatables':
-        require_once __DIR__ . "/backend/includes/Tables/datatables.php";
+    case '/admin/users/edit':
+        require_once __DIR__ . "/backend/includes/Users/users_edit.php";
         break;
-    case '/admin/admin-tables':
-        require_once __DIR__ . "/backend/includes/Tables/admin-tables.php";
-        break;
+
     case (preg_match('#^/blog/([a-zA-Z0-9-]+)$#', $request, $matches) ? true : false):
         $_GET['slug'] = $matches[1];
         require_once __DIR__ . '/frontend/single_blog.php';
