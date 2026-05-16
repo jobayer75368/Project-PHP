@@ -64,10 +64,10 @@ switch ($request) {
 
     // Contacts 
     case '/admin/contacts':
-        require_once __DIR__ . "/backend/includes/Contacts/contact.php";
+        require_once __DIR__ . "/backend/includes/contacts/contact.php";
         break;
     case '/admin/contacts/delete':
-        require_once __DIR__ . "/backend/includes/Contacts/contact_delete.php";
+        require_once __DIR__ . "/backend/includes/contacts/contact_delete.php";
         break;
     // Contacts end 
 
@@ -103,10 +103,10 @@ switch ($request) {
 
     // Tables 
     case '/admin/users/list':
-        require_once __DIR__ . "/backend/includes/Users/users_list.php";
+        require_once __DIR__ . "/backend/includes/users/users_list.php";
         break;
     case '/admin/users/edit':
-        require_once __DIR__ . "/backend/includes/Users/users_edit.php";
+        require_once __DIR__ . "/backend/includes/users/users_edit.php";
         break;
 
     case (preg_match('#^/blog/([a-zA-Z0-9-]+)$#', $request, $matches) ? true : false):
