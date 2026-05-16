@@ -28,7 +28,7 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="container" data-aos="fade-down">
 
             <h1 class="display-4 fw-bold">
-                All Articles
+                All Blogs
             </h1>
 
             <p class="lead">
@@ -41,13 +41,10 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="container py-5">
 
         <div class="row g-4">
-
             <?php if (!empty($blogs)): ?>
-
                 <?php foreach ($blogs as $blog): ?>
 
-                    <div class="col-lg-4 col-md-6">
-
+                    <a class="col-lg-4 col-md-6 text-decoration-none" href="/blog/<?= $blog['slug']; ?>">
                         <div
                             class="card h-100 border-0 shadow-sm overflow-hidden"
                             data-aos="fade-up">
@@ -63,49 +60,33 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <span
                                     class="badge bg-soft-primary text-primary mb-3"
                                     style="background: #e0e7ff; width: fit-content;">
-
                                     <?= htmlspecialchars($blog['category_name'] ?? 'Uncategorized'); ?>
-
                                 </span>
 
                                 <h4 class="mb-3">
-
                                     <?= htmlspecialchars($blog['title']); ?>
-
                                 </h4>
 
                                 <p class="text-muted flex-grow-1">
-
                                     <?= htmlspecialchars($blog['short_description']); ?>
-
                                 </p>
 
                                 <div class="mt-3">
-
                                     <small class="text-muted d-block mb-2">
-
                                         <?= date('F d, Y', strtotime($blog['created_at'])); ?>
-
                                     </small>
+                                    <span
 
-                                    <a
-                                        href="/blog/<?= $blog['slug']; ?>"
                                         class="btn btn-link p-0 text-decoration-none fw-bold">
 
                                         Read More →
 
-                                    </a>
-
+                                    </span>
                                 </div>
-
                             </div>
-
                         </div>
-
-                    </div>
-
+                    </a>
                 <?php endforeach; ?>
-
             <?php else: ?>
 
                 <div class="col-12">

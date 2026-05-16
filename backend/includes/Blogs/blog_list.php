@@ -20,6 +20,7 @@ try {
 <html lang="en">
 <!-- head -->
 <?php require_once __DIR__ . "/../head.php" ?>
+
 <!-- head -->
 
 <body id="page-top">
@@ -126,7 +127,8 @@ try {
                 </div>
                 <!---Container Fluid-->
             </div>
-
+            <!-- moda  -->
+            <?php require_once __DIR__ . "/../modal.php"  ?>
             <!-- Footer -->
             <?php require_once __DIR__ . "/../footer.php" ?>
             <!-- footer -->

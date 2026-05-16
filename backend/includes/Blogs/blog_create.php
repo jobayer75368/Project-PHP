@@ -3,12 +3,14 @@ require_once __DIR__ . "/../../session.php";
 require_once __DIR__ . "/../db_connection.php";
 require_once __DIR__ . "/../../config.php";
 
-$title = $slug = $short_description = $long_description = $featured_image = $status = "";
+
+
+$title = $slug = $short_description = $long_description = $featured_image = $categoryID = $status = "";
 $errors = [];
-$created_by = $_SESSION['user_name'];
+$created_by = $_SESSION['user_id'];
 function sanitize(string $data)
 {
-    $data = trim(htmlspecialchars($data));
+    $data = htmlspecialchars(trim($data));
     return $data;
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -37,6 +39,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errors['long_description'] = "Long Description is required";
     }
 
+    if (!empty($_POST['category_id'])) {
+        $categoryID = sanitize($_POST['category_id']);
+    } else {
+        $errors['category_id'] = "category is required";
+    }
+
     if (!empty($_POST['status'])) {
         $status = sanitize($_POST['status']);
     } else {
@@ -45,21 +53,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!empty($_FILES['featured_image']['name'])) {
 
-        $fileName = time() . "-" . $_FILES['featured_image']['name'];
-        $targetPath = __DIR__ . "/../../uploads/" . $fileName;
-        move_uploaded_file($_FILES['featured_image']['tmp_name'], $targetPath);
-        $featured_image = BASE_URL . "uploads/" . $fileName;
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+
+        if (in_array($_FILES['featured_image']['type'], $allowedTypes)) {
+            $fileName = time() . "-" . $_FILES['featured_image']['name'];
+
+            $targetPath = __DIR__ . "/../../uploads/" . $fileName;
+            move_uploaded_file($_FILES['featured_image']['tmp_name'], $targetPath);
+            $featured_image = BASE_URL . "uploads/" . $fileName;
+        } else {
+            $errors['featured_image'] = "Only JPG, PNG and WEBP images are allowed";
+        }
+    } else {
+
+        $errors['featured_image'] = "Featured image is required";
     }
 
     if (empty($errors)) {
-        $sql = "INSERT INTO blogs (title, slug, short_description, long_description,featured_image, status, created_by)
-                    VALUES (?,?,?,?,?,?,?)";
+        $sql = "INSERT INTO blogs (title, slug, short_description, long_description,featured_image,category_id, status, created_by)
+                    VALUES (?,?,?,?,?,?,?,?)";
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$title, $slug, $short_description, $long_description, $featured_image, $status, $created_by]);
+        $stmt->execute([$title, $slug, $short_description, $long_description, $featured_image, $categoryID, $status, $created_by]);
         header("Location: /admin/blog/list");
         exit();
     }
 }
+
+$categorySql = "SELECT * FROM categories";
+$categoryStmt = $pdo->prepare($categorySql);
+$categoryStmt->execute();
+$categories = $categoryStmt->fetchAll(PDO::FETCH_ASSOC)
 
 ?>
 
@@ -119,7 +142,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         </div>
                                         <div class="form-group">
                                             <label for="long_description">Long Description</label>
-                                            <textarea class="form-control" id="long_description" name="long_description"><?= $short_description ?></textarea>
+                                            <textarea class="form-control" id="long_description" name="long_description"><?= $long_description ?></textarea>
 
                                             <p class="text-danger"><?php echo isset($errors['long_description']) ? $errors['long_description'] : ""; ?></p>
                                         </div>
@@ -128,6 +151,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             <input type="file" class="form-control" id="featured_image" name="featured_image" aria-describedby="featured_image" placeholder="Enter Featured image" value="<?php echo $featured_image ?>">
 
                                             <p class="text-danger"><?php echo isset($errors['featured_image']) ? $errors['featured_image'] : ""; ?></p>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="category">Category</label>
+                                            <select class="form-control" name="category_id" id="category">
+                                                <?php foreach ($categories as $category) : ?>
+                                                    <option value="<?= $category['id']; ?>"><?= $category['name'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                         <div class="form-group">
                                             <label for="status">Status</label>
@@ -148,6 +179,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
                 </div>
                 <!---Container Fluid-->
+                <!-- modal  -->
+                <?php require_once __DIR__ . "/../modal.php"  ?>
             </div>
             <!-- Footer -->
             <?php require_once __DIR__ . "/../footer.php" ?>

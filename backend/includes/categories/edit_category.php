@@ -119,7 +119,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <!---Container Fluid-->
             </div>
-
+            <!-- modal  -->
+            <?php require_once __DIR__ . "/../modal.php"  ?>
             <!-- Footer -->
             <?php require_once __DIR__ . "/../footer.php" ?>
             <!-- footer -->

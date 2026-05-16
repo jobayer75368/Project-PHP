@@ -15,19 +15,25 @@ switch ($request) {
     case '/contact':
         require_once __DIR__ . '/frontend/contact.php';
         break;
+    // frontend end 
+
     // backend 
+
     // register 
     case '/register':
         require_once __DIR__ . '/backend/register.php';
         break;
+
     // Login 
     case '/login':
-        require_once __DIR__ . '/backend/user_login.php';
+        require_once __DIR__ . '/backend/login.php';
         break;
+
     //creating new table        
     case '/migration':
         require_once __DIR__ . '/backend/migration.php';
         break;
+
     //Database connection        
     case '/db_connection':
         require_once __DIR__ . '/backend/includes/db_connection.php';
@@ -38,14 +44,12 @@ switch ($request) {
     case '/admin/dashboard':
         require_once __DIR__ . "/backend/dashboard.php";
         break;
+
     //Admin profile
     case '/admin/profile':
         require_once __DIR__ . '/backend/admin_profile.php';
         break;
-    // Login 
-    case '/admin/login':
-        require_once __DIR__ . "/backend/login.php";
-        break;
+
     // 404 Page 
     case '/admin/Error-404':
         require_once __DIR__ . "/backend/404.php";
@@ -57,14 +61,17 @@ switch ($request) {
     case '/admin/logout':
         require_once __DIR__ . "/backend/logout.php";
         break;
-    //Categories
 
+    // Contacts 
     case '/admin/contacts':
-        require_once __DIR__ . "/backend/includes/categories/contact.php";
+        require_once __DIR__ . "/backend/includes/Contacts/contact.php";
         break;
     case '/admin/contacts/delete':
-        require_once __DIR__ . "/backend/includes/categories/contact_delete.php";
+        require_once __DIR__ . "/backend/includes/Contacts/contact_delete.php";
         break;
+    // Contacts end 
+
+    //Categories
     case '/admin/category/list':
         require_once __DIR__ . "/backend/includes/categories/category_list.php";
         break;
@@ -77,6 +84,8 @@ switch ($request) {
     case '/admin/category/delete':
         require_once __DIR__ . "/backend/includes/categories/delete.php";
         break;
+    // categories end 
+
     //BLOGS
     case '/admin/blog/list':
         require_once __DIR__ . "/backend/includes/blogs/blog_list.php";
@@ -90,15 +99,8 @@ switch ($request) {
     case '/admin/blog/delete':
         require_once __DIR__ . "/backend/includes/blogs/blog_delete.php";
         break;
+    // Blogs end
 
-    // Forms 
-    case '/admin/form-basics':
-        require_once __DIR__ . "/backend/includes/Forms/form_basics.php";
-        break;
-    case '/admin/form-advanceds':
-        require_once __DIR__ . "/backend/includes/Forms/form_advanceds.php";
-        break;
-    // Forms end 
     // Tables 
     case '/admin/users-tables':
         require_once __DIR__ . "/backend/includes/Tables/users-tables.php";
@@ -118,6 +120,7 @@ switch ($request) {
         require_once __DIR__ . '/frontend/category.php';
         break;
     // Tables end  
+
     default:
         http_response_code(404);
         require_once __DIR__ . "/frontend/404.php";

@@ -49,16 +49,18 @@ $blogs = $blogStmt->fetchAll(PDO::FETCH_ASSOC);
     <div class="container py-5">
 
         <div class="row g-4">
+
             <?php if (!empty($blogs)): ?>
                 <?php foreach ($blogs as $blog): ?>
+
                     <a href="/blog/<?= $blog['slug']; ?>" class="col-lg-4 col-md-6 fw-bold text-decoration-none text-black">
                         <div class="card h-100 shadow-sm border-0">
                             <img
                                 src="<?= $blog['featured_image']; ?>"
                                 class="card-img-top"
-                                style="height:220px;object-fit:cover;">
+                                style="height: 230px; object-fit: cover;">
 
-                            <div class="card-body">
+                            <div class="card-body d-flex flex-column p-4">
                                 <h4>
                                     <?= htmlspecialchars($blog['title']); ?>
                                 </h4>
@@ -66,11 +68,18 @@ $blogs = $blogStmt->fetchAll(PDO::FETCH_ASSOC);
                                 <p class="text-muted">
                                     <?= htmlspecialchars($blog['short_description']); ?>
                                 </p>
-                                <a
-                                    href="/blog/<?= $blog['slug']; ?>"
-                                    class="btn btn-link p-0 fw-bold text-decoration-none">
-                                    Read More →
-                                </a>
+                                <div class="mt-3">
+                                    <small class="text-muted d-block mb-2">
+                                        <?= date('F d, Y', strtotime($blog['created_at'])); ?>
+                                    </small>
+                                    <span
+
+                                        class="btn btn-link p-0 text-decoration-none fw-bold">
+
+                                        Read More →
+
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </a>

@@ -1,9 +1,8 @@
 <?php
-if(session_status() === PHP_SESSION_NONE ){
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 session_unset();
 session_destroy();
-header("Location:/admin/login");
+header("Location:/login");
 exit();
-?>

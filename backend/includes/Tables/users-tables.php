@@ -105,7 +105,7 @@ try {
         </div>
         <!---Container Fluid-->
       </div>
-
+      <?php require_once __DIR__ . "/../modal.php"  ?>
       <!-- Footer -->
       <?php require_once __DIR__ . "/../footer.php" ?>
       <!-- footer -->
