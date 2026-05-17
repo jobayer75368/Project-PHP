@@ -4,6 +4,7 @@ require_once __DIR__ . "/session.php";
 require_once __DIR__ . "/includes/db_connection.php";
 require_once __DIR__ . "/config.php";
 
+$id = $_GET['id'] ?? null;
 $user = [];
 
 // Upload Image
@@ -18,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_FILES['featured_image']['n
   $statement = $pdo->prepare($sql);
   $statement->execute([
     ':featured_image' => $db_Path,
-    ':id' => 1
+    ':id' => $id
   ]);
 }
 try {
@@ -26,7 +27,7 @@ try {
   $sql = "SELECT * FROM users WHERE id = :id";
   $statement = $pdo->prepare($sql);
   $statement->execute([
-    ':id' => 1
+    ':id' => $id
   ]);
 
   $user = $statement->fetch(PDO::FETCH_ASSOC);

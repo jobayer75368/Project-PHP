@@ -46,57 +46,61 @@ try {
             </ol>
           </div>
 
-          <div class="row">
-            <div class="col-lg-12 mb-4">
+          <div class="row ">
+            <div class="col-lg-12 mb-4 ">
 
               <div class="card">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Users Table</h6>
                 </div>
+                <?php if ($_SESSION['user_id'] !== 1): ?>
+                  <div class="table-responsive text-center">
+                    <h2>Only Admin can access Users Table!</h2>
+                  </div>
+                <?php else : ?>
+                  <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
 
-                <div class="table-responsive">
-                  <table class="table align-items-center table-flush">
-
-                    <thead class="thead-light">
-                      <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-
-                    <tbody>
-                      <?php if (!empty($users)): ?>
-                        <?php foreach ($users as $user): ?>
-                          <tr>
-                            <td><?= $user['id'] ?></td>
-                            <td><?= $user['name'] ?></td>
-                            <td><?= $user['email'] ?></td>
-                            <td><?= $user['role'] ?></td>
-                            <td>
-                              <span class="badge <?= ($user['status'] == 'inactive') ? 'badge-danger' : 'badge-success'; ?> ">
-                                <?= $user['status'] == 'inactive' ? 'Inactive' : 'Active'; ?>
-                              </span>
-                            </td>
-                            <td>
-                              <a href="/admin/users/edit?id=<?php echo $user['id']; ?>" class="btn btn-primary p-1 mr-1"><i class="fa-solid fa-pen-to-square"></i></a>
-                              <a href="/admin/profile" class="btn btn-sm btn-primary">Detail</a>
-                            </td>
-                          </tr>
-                        <?php endforeach; ?>
-                      <?php else: ?>
+                      <thead class="thead-light">
                         <tr>
-                          <td colspan="5" class="text-center">No users found</td>
+                          <th>ID</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Role</th>
+                          <th>Status</th>
+                          <th>Action</th>
                         </tr>
-                      <?php endif; ?>
-                    </tbody>
+                      </thead>
 
-                  </table>
-                </div>
+                      <tbody>
+                        <?php if (!empty($users)): ?>
+                          <?php foreach ($users as $user): ?>
+                            <tr>
+                              <td><?= $user['id'] ?></td>
+                              <td><?= $user['name'] ?></td>
+                              <td><?= $user['email'] ?></td>
+                              <td><?= $user['role'] ?></td>
+                              <td>
+                                <span class="badge <?= ($user['status'] == 'inactive') ? 'badge-danger' : 'badge-success'; ?> ">
+                                  <?= $user['status'] == 'inactive' ? 'Inactive' : 'Active'; ?>
+                                </span>
+                              </td>
+                              <td>
+                                <a href="/admin/users/edit?id=<?php echo $user['id']; ?>" class="btn btn-primary p-1 mr-1"><i class="fa-solid fa-pen-to-square"></i></a>
+                                <a href="/admin/profile?id=<?php echo $user['id']; ?>" class="btn btn-sm btn-primary">Detail</a>
+                              </td>
+                            </tr>
+                          <?php endforeach; ?>
+                        <?php else: ?>
+                          <tr>
+                            <td colspan="5" class="text-center">No users found</td>
+                          </tr>
+                        <?php endif; ?>
+                      </tbody>
 
+                    </table>
+                  </div>
+                <?php endif; ?>
                 <div class="card-footer"></div>
               </div>
 

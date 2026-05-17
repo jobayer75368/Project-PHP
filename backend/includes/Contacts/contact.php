@@ -51,35 +51,41 @@ try {
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Contact list</h6>
                 </div>
-                <div class="table-responsive">
-                  <table class="table align-items-center table-flush">
-                    <thead class="thead-light">
-                      <tr>
-                        <th>ID</th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Subject</th>
-                        <th>Message</th>
-                        <th>Time</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php foreach ($contacts as $contact): ?>
+                <?php if ($_SESSION['user_id'] !== 1): ?>
+                  <div class="table-responsive text-center">
+                    <h2>Only Admin can access Contact List!</h2>
+                  </div>
+                <?php else: ?>
+                  <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                      <thead class="thead-light">
                         <tr>
-                          <td> <?php echo $contact['id'] ?></td>
-                          <td> <?php echo $contact['name'] ?></td>
-                          <td> <?php echo $contact['email'] ?></td>
-                          <td> <?php echo $contact['subject'] ?></td>
-                          <td> <?php echo $contact['message'] ?></td>
-                          <td> <?php echo $contact['created_at'] ?></td>
-                          <td><a href="/admin/contacts/delete?id=<?php echo $contact['id'] ?>"
-                              onclick="return confirm('Are you sure you want to delete this category?')" class="btn btn-danger p-1"><i class="fa-solid fa-trash text-white"></i></a></td>
+                          <th>ID</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Subject</th>
+                          <th>Message</th>
+                          <th>Time</th>
+                          <th>Action</th>
                         </tr>
-                      <?php endforeach; ?>
-                    </tbody>
-                  </table>
-                </div>
+                      </thead>
+                      <tbody>
+                        <?php foreach ($contacts as $contact): ?>
+                          <tr>
+                            <td> <?php echo $contact['id'] ?></td>
+                            <td> <?php echo $contact['name'] ?></td>
+                            <td> <?php echo $contact['email'] ?></td>
+                            <td> <?php echo $contact['subject'] ?></td>
+                            <td> <?php echo $contact['message'] ?></td>
+                            <td> <?php echo $contact['created_at'] ?></td>
+                            <td><a href="/admin/contacts/delete?id=<?php echo $contact['id'] ?>"
+                                onclick="return confirm('Are you sure you want to delete this category?')" class="btn btn-danger p-1"><i class="fa-solid fa-trash text-white"></i></a></td>
+                          </tr>
+                        <?php endforeach; ?>
+                      </tbody>
+                    </table>
+                  </div>
+                <?php endif; ?>
                 <div class="card-footer"></div>
               </div>
             </div>

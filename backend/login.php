@@ -1,50 +1,50 @@
 <?php
 session_start();
 require_once __DIR__ . "/includes/db_connection.php";
+
 $email = "";
 $password = "";
-
 $error = [];
+
 function sanitize(string $data)
 {
   $data = trim(htmlspecialchars($data));
   return $data;
 }
-
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-  $email = sanitize($_POST["email"]);
-  $password = sanitize($_POST["password"]);
+
+  $email = sanitize($_POST["email"]) ?? '';
+  $password = sanitize($_POST["password"]) ?? '';
 
   if (empty($email)) {
     $error["email"] = "Email is required!";
-  } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $error["email"] = "Invalid Email address!";
   }
 
   if (empty($password)) {
     $error["password"] = "Password is required!";
   }
-  if (empty($error)) {
-    $sql = "SELECT * FROM admins WHERE email=:email LIMIT 1";
-    $statement = $pdo->prepare($sql);
-    $statement->execute([
-      ':email' => $email
-    ]);
-    $admin = $statement->fetch(PDO::FETCH_ASSOC);
 
-    if ($admin && password_verify($password, $admin['password'])) {
-      $_SESSION['admin_id'] = $admin['id'];
+  if (empty($error)) {
+
+    $sql = "SELECT * FROM users WHERE email = :email LIMIT 1";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([':email' => $email]);
+
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user && password_verify($password, $user['password'])) {
+
+      $_SESSION['user_id'] = $user['id'];
+      $_SESSION['user_name'] = $user['name'];
+
       header("Location: /admin/dashboard");
       exit();
     } else {
-      $error["default"] = "Invalid Email or Password!";
+      $error["default"] = "Invalid email or password!";
     }
   }
 }
 ?>
-
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -52,7 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <?php require_once __DIR__ . "/includes/head.php" ?>
 
 <body class="bg-gradient-login">
-  <!-- Login Content -->
   <div class="container-login">
     <div class="row justify-content-center">
       <div class="col-xl-6 col-lg-12 col-md-9">
@@ -64,52 +63,39 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Login</h1>
                   </div>
-                  <form class="user" method="POST">
-                    <div class="form-group">
-                      <input type="email" class="form-control" id="exampleInputEmail" aria-describedby="emailHelp"
-                        placeholder="Enter Email Address" name="email" value="<?php echo $email ?>">
-                      <p class="text-danger"><?php echo isset($error["email"]) ? $error["email"] : ""; ?></p>
-                    </div>
-                    <div style="position: relative; width: 100%;">
-                      <input type="password"
-                        class="form-control"
-                        id="password"
-                        placeholder="Password"
-                        name="password"
-                        style="padding-right: 45px;">
 
-                      <i class="fa-solid fa-eye"
-                        id="togglePassword"
-                        style="
-                          position: absolute;
-                          right: 12px;
-                          top: 50%;
-                          transform: translateY(-50%);
-                          cursor: pointer;
-                          color: #6c757d;
-                        ">
-                      </i>
-                    </div>
-                    <p class="text-danger"><?php echo isset($error["password"]) ? $error["password"] : ""; ?></p>
-                    <p class="text-danger"><?php echo isset($error["default"]) ? $error["default"] : ""; ?></p>
+                  <form class="user" method="POST">
+
                     <div class="form-group">
-                      <div class="custom-control custom-checkbox small" style="line-height: 1.5rem;">
-                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">Remember
-                          Me</label>
-                      </div>
+                      <input type="email" class="form-control" name="email"
+                        placeholder="Enter Email Address" value="<?= $email ?>">
+                      <p class="text-danger"><?= $error["email"] ?? "" ?></p>
                     </div>
+
+                    <div class="form-group">
+                      <input type="password" class="form-control" name="password"
+                        placeholder="Password">
+                      <p class="text-danger"><?= $error["password"] ?? "" ?></p>
+                    </div>
+
+                    <p class="text-danger text-center">
+                      <?= $error["default"] ?? "" ?>
+                    </p>
+
                     <div class="form-group">
                       <input value="Login" class="btn btn-primary btn-block" type="submit">
                     </div>
-                    <hr>
+
                   </form>
+
                   <hr>
+
                   <div class="text-center">
-                    <a class="font-weight-bold small" href="register.html">Create an Account!</a>
+                    <a class="font-weight-bold small" href="/register">
+                      Create an Account
+                    </a>
                   </div>
-                  <div class="text-center">
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -118,20 +104,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
       </div>
     </div>
   </div>
-  <!-- Login Content -->
+
   <?php require_once __DIR__ . "/includes/script.php" ?>
-  <script>
-    const password = document.getElementById('password');
-    const toggle = document.getElementById('togglePassword');
-
-    toggle.addEventListener('click', () => {
-      const isPassword = password.type === 'password';
-      password.type = isPassword ? 'text' : 'password';
-
-      toggle.classList.toggle('fa-eye-slash');
-      toggle.classList.toggle('fa-eye');
-    });
-  </script>
 </body>
 
 </html>
