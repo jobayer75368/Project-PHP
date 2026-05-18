@@ -13,9 +13,23 @@ $stmt->execute([$slug]);
 
 $blog = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
 if (!$blog) {
     die('Blog not found');
 }
+
+$recentSql = "SELECT blogs.*, categories.name AS category_name, users.name AS posted_by
+        FROM blogs
+        LEFT JOIN categories ON blogs.category_id = categories.id
+        LEFT JOIN users ON blogs.created_by = users.id
+        WHERE blogs.status='published'
+        ORDER BY blogs.created_at DESC
+        LIMIT 3";
+
+$recentSqlStmt = $pdo->prepare($recentSql);
+$recentSqlStmt->execute();
+
+$recentBlogs = $recentSqlStmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Comments table insert
 $errors = [];
@@ -71,8 +85,19 @@ $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body>
 
     <?php require_once __DIR__ . "/includes/navbar.php" ?>
+    <header class="hero-section text-center">
+        <div class="container d-flex flex-column align-items-center" data-aos="fade-down">
+
+            <h1 class="display-4 fw-bold">
+                Our Blogs
+            </h1>
+            <h2 class="fw-bold w-75 mt-3 text-center">
+                <?= htmlspecialchars($blog['title']); ?>
+            </h2>
+        </div>
+    </header>
     <div class="container py-5">
-        <div class="row justify-content-center">
+        <div class="row">
             <div class="col-lg-8">
                 <div class="card border-0 shadow-sm overflow-hidden mb-5">
                     <img
@@ -166,6 +191,32 @@ $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             </p>
                         <?php endif; ?>
                     </div>
+                </div>
+            </div>
+
+            <!-- Recent Blogs -->
+            <div class="col-lg-4">
+                <div class=" card p-4 mb-4 sticky-top" style="top: 90px;" data-aos="fade-left">
+                    <h5 class="widget-title">Recent Blogs</h5>
+
+                    <?php if (!empty($recentBlogs)): ?>
+                        <?php foreach ($recentBlogs as $recentBlog): ?>
+                            <a href="/blog/<?= $recentBlog['slug']; ?>" class="recent-post-item">
+                                <img
+                                    src="<?php echo !empty($recentBlog['featured_image']) ? $recentBlog['featured_image'] : '/frontend/assests/images/no-image.png'; ?>"
+                                    class="recent-post-img"
+                                    alt="<?= htmlspecialchars($recentBlog['title']); ?>">
+                                <div>
+                                    <p class="recent-post-title">
+                                        <?= htmlspecialchars($recentBlog['title']); ?>
+                                    </p>
+                                    <span class="recent-post-date">
+                                        <?= date('M d, Y', strtotime($recentBlog['created_at'])); ?>
+                                    </span>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>

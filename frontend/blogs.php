@@ -28,7 +28,7 @@ $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="container" data-aos="fade-down">
 
             <h1 class="display-4 fw-bold">
-                All Blogs
+                Our Blogs
             </h1>
 
             <p class="lead">
