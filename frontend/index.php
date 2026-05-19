@@ -7,7 +7,7 @@ $sql = "SELECT blogs.*, categories.name AS category_name, users.name AS posted_b
         LEFT JOIN users ON blogs.created_by = users.id
         WHERE blogs.status='published'
         ORDER BY blogs.created_at DESC
-        LIMIT 3";
+        LIMIT 4";
 
 $stmt = $pdo->prepare($sql);
 $stmt->execute();

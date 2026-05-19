@@ -27,20 +27,15 @@
                     <h2 class="text-danger fw-bold mb-4">Who We Are</h2>
 
                     <p class="fs-5 text-secondary">
-                        We are passionate about technology and modern web development. Our goal is to create fast,
-                        secure, and user-friendly digital experiences that help businesses grow in the online world.
+                        We provide professional training in web development, software development, graphic design, and digital marketing. We focus on practical learning, real projects, and career-focused skills to prepare students for industry success.
                     </p>
 
                     <p class="fs-5 text-secondary">
-                        From frontend design to backend development, we focus on building responsive websites,
-                        scalable applications, and clean user interfaces using modern technologies like PHP,
-                        Laravel, JavaScript, and Bootstrap.
+                        Our experienced mentors guide students through modern technologies and creative techniques using simple teaching methods. We help learners build confidence, improve problem-solving abilities, and develop strong portfolios for freelance and job opportunities.
                     </p>
 
                     <p class="fs-5 text-secondary">
-                        We believe technology should solve real problems. That is why we continuously learn,
-                        improve, and develop innovative IT solutions that make systems more efficient and accessible
-                        for everyone.
+                        We believe quality education should be accessible, practical, and future-oriented for every student. Our mission is to create skilled professionals who can compete globally and build successful careers in the technology industry.
                     </p>
                 </div>
 

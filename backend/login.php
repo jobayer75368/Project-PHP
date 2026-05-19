@@ -2,6 +2,11 @@
 session_start();
 require_once __DIR__ . "/includes/db_connection.php";
 
+if (isset($_SESSION['user_id'])) {
+  header("Location: /admin/dashboard");
+  exit;
+}
+
 $email = "";
 $password = "";
 $error = [];
@@ -35,7 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if ($user && password_verify($password, $user['password'])) {
 
       $_SESSION['user_id'] = $user['id'];
-      $_SESSION['user_name'] = $user['name'];
 
       header("Location: /admin/dashboard");
       exit();
