@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . "/includes/db_connection.php";
+require_once __DIR__ . "/restrict.php";
 
 function createTable(PDO $pdo, string $table, string $sql)
 {
@@ -165,20 +166,31 @@ function createTable(PDO $pdo, string $table, string $sql)
 //         ON DELETE CASCADE
 //     )"
 // );
+// try {
+
+//     $sql = "ALTER TABLE blogs
+//             ADD category_id INT UNSIGNED NULL,
+//             ADD CONSTRAINT fk_blog_category
+//             FOREIGN KEY (category_id)
+//             REFERENCES categories(id)
+//             ON DELETE SET NULL";
+
+//     $statement = $pdo->prepare($sql);
+//     $statement->execute();
+
+//     echo 'Successful';
+// } catch (PDOException $e) {
+
+//     echo 'Error: ' . $e->getMessage();
+// }
+
 try {
-
-    $sql = "ALTER TABLE blogs
-            ADD category_id INT UNSIGNED NULL,
-            ADD CONSTRAINT fk_blog_category
-            FOREIGN KEY (category_id)
-            REFERENCES categories(id)
-            ON DELETE SET NULL";
-
+    $sql = "ALTER TABLE comments
+    ADD status ENUM('pending','approved') DEFAULT 'pending' 
+    AFTER comment";
     $statement = $pdo->prepare($sql);
     $statement->execute();
-
-    echo 'Successful';
+    echo "Successfull";
 } catch (PDOException $e) {
-
-    echo 'Error: ' . $e->getMessage();
+    echo "Error Inserting Data:" . $sql . "<br>" . $e->getMessage();
 }

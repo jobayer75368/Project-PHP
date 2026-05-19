@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Fetch comments
 $sql = "SELECT * FROM comments
-        WHERE blog_id=?
+        WHERE blog_id=? AND comments.status = 'approved'
         ORDER BY created_at DESC";
 
 $stmt = $pdo->prepare($sql);

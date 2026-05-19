@@ -5,20 +5,22 @@ require_once __DIR__ . "/../db_connection.php";
 require_once __DIR__ . "/restrict.php";
 
 try {
-    $sql = "SELECT * FROM categories ORDER BY created_at DESC";
+    $sql = "SELECT comments.*, blogs.title AS blog_title
+    FROM comments
+    JOIN blogs ON comments.blog_id = blogs.id";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
-    $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
-    die("Error fetching categories: " . $e->getMessage());
+    die("Error fetching comments: " . $e->getMessage());
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <!-- head -->
 <?php require_once __DIR__ . "/../head.php" ?>
+
 <!-- head -->
 
 <body id="page-top">
@@ -39,11 +41,11 @@ try {
                 <div class="container-fluid" id="container-wrapper">
 
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Category Manage</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Commetns Manage</h1>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="./">Home</a></li>
-                            <li class="breadcrumb-item">Category Manage</li>
-                            <li class="breadcrumb-item active" aria-current="page">Category List</li>
+                            <li class="breadcrumb-item">Comments Manage</li>
+                            <li class="breadcrumb-item active" aria-current="page">Comments</li>
                         </ol>
                     </div>
 
@@ -52,7 +54,7 @@ try {
 
                             <div class="card">
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Category List</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Comments</h6>
                                 </div>
 
                                 <div class="table-responsive">
@@ -62,33 +64,48 @@ try {
                                             <tr>
                                                 <th>SL</th>
                                                 <th>Name</th>
-                                                <th>Slug</th>
+                                                <th>Comment</th>
+                                                <th>Blog</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
+                                                <th>Created at</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php if (!empty($categories)): ?>
-                                                <?php foreach ($categories as $category): ?>
+                                            <?php if (!empty($comments)): ?>
+                                                <?php foreach ($comments as $comment): ?>
                                                     <tr>
-                                                        <td><?= $category['id'] ?></td>
-                                                        <td><?= $category['name'] ?></td>
-                                                        <td><?= $category['slug'] ?></td>
+                                                        <td><?= $comment['id'] ?></td>
+                                                        <td><?= $comment['name'] ?></td>
+                                                        <td><?= $comment['comment'] ?></td>
+                                                        <td><?= $comment['blog_title'] ?></td>
                                                         <td>
-                                                            <span class="badge <?= ($category['status'] == 0) ? 'badge-danger' : 'badge-success'; ?> ">
-                                                                <?= $category['status'] == 0 ? 'Inactive' : 'Active'; ?>
+                                                            <?php
+                                                            $statusClass = match ($comment['status']) {
+                                                                'pending' => 'badge-warning',
+                                                                'approved' => 'badge-success',
+                                                                default => 'badge-dark'
+                                                            };
+                                                            ?>
+
+                                                            <span class="badge <?= $statusClass; ?>">
+                                                                <?= ucfirst($comment['status']); ?>
                                                             </span>
                                                         </td>
-                                                        <td class="">
-                                                            <a href="/admin/category/edit?id=<?php echo $category['id']; ?>" class="btn btn-primary p-1 mr-1"><i class="fa-solid fa-pen-to-square"></i></a>
-                                                            <a href="/admin/category/delete?id=<?php echo $category['id'] ?>"
-                                                                onclick="return confirm('Are you sure you want to delete this category?')" class="btn btn-danger p-1"><i class="fa-solid fa-trash text-white"></i></a>
+                                                        <td class="d-lg-flex">
+                                                            <?php if ($comment['status'] == 'pending') : ?>
+                                                                <a href="/admin/comment/approve?id=<?php echo $comment['id']; ?>" onclick="return confirm('Are you sure you want to Approve this Comment?')" class="btn btn-primary p-1 mr-lg-2 mb-2 mb-lg-0">Approve</a>
+                                                            <?php else: ?>
+                                                            <?php endif; ?>
+                                                            <a href="/admin/comment/delete?id=<?php echo $comment['id'] ?>"
+                                                                onclick="return confirm('Are you sure you want to delete this Comment?')" class="btn btn-danger p-1"><?= $comment['status'] == 'pending' ? 'Reject' : 'Delete' ?></a>
                                                         </td>
+                                                        <td><?= $comment['created_at'] ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             <?php else: ?>
                                                 <tr>
-                                                    <td colspan="5" class="text-center">No Categories found</td>
+                                                    <td colspan="5" class="text-center">No Comment found</td>
                                                 </tr>
                                             <?php endif; ?>
                                         </tbody>
@@ -105,7 +122,7 @@ try {
                 </div>
                 <!---Container Fluid-->
             </div>
-            <!-- modal  -->
+            <!-- moda  -->
             <?php require_once __DIR__ . "/../modal.php"  ?>
             <!-- Footer -->
             <?php require_once __DIR__ . "/../footer.php" ?>

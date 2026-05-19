@@ -1,5 +1,5 @@
 <?php
-
+require_once __DIR__ . "/restrict.php";
 // Connecting Database 
 $servername = "localhost";
 $username = "root";

@@ -1,6 +1,4 @@
 <?php
-
-
 $request = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 switch ($request) {
@@ -15,6 +13,15 @@ switch ($request) {
         break;
     case '/contact':
         require_once __DIR__ . '/frontend/contact.php';
+        break;
+
+    case (preg_match('#^/blog/([a-zA-Z0-9-]+)$#', $request, $matches) ? true : false):
+        $_GET['slug'] = $matches[1];
+        require_once __DIR__ . '/frontend/single_blog.php';
+        break;
+    case (preg_match('#^/category/([a-zA-Z0-9-]+)$#', $request, $matches) ? true : false):
+        $_GET['slug'] = $matches[1];
+        require_once __DIR__ . '/frontend/category.php';
         break;
     // frontend end 
 
@@ -110,15 +117,20 @@ switch ($request) {
         require_once __DIR__ . "/backend/includes/users/users_edit.php";
         break;
 
-    case (preg_match('#^/blog/([a-zA-Z0-9-]+)$#', $request, $matches) ? true : false):
-        $_GET['slug'] = $matches[1];
-        require_once __DIR__ . '/frontend/single_blog.php';
-        break;
-    case (preg_match('#^/category/([a-zA-Z0-9-]+)$#', $request, $matches) ? true : false):
-        $_GET['slug'] = $matches[1];
-        require_once __DIR__ . '/frontend/category.php';
-        break;
+
     // Tables end  
+
+    // Comments 
+    case '/admin/comments':
+        require_once __DIR__ . '/backend/includes/comments/comments.php';
+        break;
+    case '/admin/comment/approve':
+        require_once __DIR__ . '/backend/includes/comments/comment_approve.php';
+        break;
+
+    case '/admin/comment/delete':
+        require_once __DIR__ . "/backend/includes/comments/comment_delete.php";
+        break;
 
     default:
         http_response_code(404);
