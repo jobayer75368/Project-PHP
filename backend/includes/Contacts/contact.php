@@ -1,7 +1,8 @@
 <?php
 require_once __DIR__ . "/../../session.php";
 require_once __DIR__ . "/../db_connection.php";
-require_once __DIR__ . "/restrict.php";
+require_once __DIR__ . "/../../config.php";
+require_once __DIR__ . "/../../restrict.php";
 $contacts = [];
 try {
   $sql = "SELECT * FROM contacts ORDER BY id DESC;";
@@ -78,7 +79,7 @@ try {
                             <td> <?php echo $contact['email'] ?></td>
                             <td> <?php echo $contact['subject'] ?></td>
                             <td> <?php echo $contact['message'] ?></td>
-                            <td> <?php echo $contact['created_at'] ?></td>
+                            <td><?= date("d M Y, h:i A", strtotime($contact['created_at'])) ?></td>
                             <td><a href="/admin/contacts/delete?id=<?php echo $contact['id'] ?>"
                                 onclick="return confirm('Are you sure you want to delete this category?')" class="btn btn-danger p-1"><i class="fa-solid fa-trash text-white"></i></a></td>
                           </tr>

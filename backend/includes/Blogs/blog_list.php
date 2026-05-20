@@ -1,9 +1,8 @@
 <?php
 require_once __DIR__ . "/../../session.php";
-
 require_once __DIR__ . "/../db_connection.php";
 require_once __DIR__ . "/../../config.php";
-require_once __DIR__ . "/restrict.php";
+require_once __DIR__ . "/../../restrict.php";
 
 try {
     $sql = "SELECT blogs.*, users.name AS posted_by
@@ -68,7 +67,8 @@ try {
                                                 <th>Slug</th>
                                                 <th>Image</th>
                                                 <th>Status</th>
-                                                <th>Poste By</th>
+                                                <th>Posted By</th>
+                                                <th>Date</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -102,6 +102,9 @@ try {
                                                             </span>
                                                         </td>
                                                         <td><?= $blog['posted_by'] ?></td>
+                                                        <td>
+                                                            <?= date("d M Y", strtotime($blog['created_at'])) ?>
+                                                        </td>
                                                         <td class="">
                                                             <a href="/admin/blog/edit?id=<?php echo $blog['id']; ?>" class="btn btn-primary p-1 mr-1"><i class="fa-solid fa-pen-to-square"></i></a>
                                                             <a href="/admin/blog/delete?id=<?php echo $blog['id'] ?>"

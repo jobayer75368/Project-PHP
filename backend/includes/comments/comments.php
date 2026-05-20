@@ -1,8 +1,8 @@
 <?php
 require_once __DIR__ . "/../../session.php";
-
+require_once __DIR__ . "/../../config.php";
 require_once __DIR__ . "/../db_connection.php";
-require_once __DIR__ . "/restrict.php";
+require_once __DIR__ . "/../../restrict.php";
 
 try {
     $sql = "SELECT comments.*, blogs.title AS blog_title
@@ -67,8 +67,8 @@ try {
                                                 <th>Comment</th>
                                                 <th>Blog</th>
                                                 <th>Status</th>
+                                                <th>Time</th>
                                                 <th>Action</th>
-                                                <th>Created at</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -92,6 +92,7 @@ try {
                                                                 <?= ucfirst($comment['status']); ?>
                                                             </span>
                                                         </td>
+                                                        <td><?= date("d M Y, h:i A", strtotime($user['created_at'])) ?></td>
                                                         <td class="d-lg-flex">
                                                             <?php if ($comment['status'] == 'pending') : ?>
                                                                 <a href="/admin/comment/approve?id=<?php echo $comment['id']; ?>" onclick="return confirm('Are you sure you want to Approve this Comment?')" class="btn btn-primary p-1 mr-lg-2 mb-2 mb-lg-0">Approve</a>
@@ -100,7 +101,6 @@ try {
                                                             <a href="/admin/comment/delete?id=<?php echo $comment['id'] ?>"
                                                                 onclick="return confirm('Are you sure you want to delete this Comment?')" class="btn btn-danger p-1"><?= $comment['status'] == 'pending' ? 'Reject' : 'Delete' ?></a>
                                                         </td>
-                                                        <td><?= $comment['created_at'] ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             <?php else: ?>

@@ -116,6 +116,9 @@ switch ($request) {
     case '/admin/users/edit':
         require_once __DIR__ . "/backend/includes/users/users_edit.php";
         break;
+    case '/admin/user/delete':
+        require_once __DIR__ . "/backend/includes/users/user_delete.php";
+        break;
 
 
     // Tables end  

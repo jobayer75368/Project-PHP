@@ -2,10 +2,9 @@
 require_once __DIR__ . "/../../session.php";
 require_once __DIR__ . "/../db_connection.php";
 require_once __DIR__ . "/../../config.php";
-require_once __DIR__ . "/restrict.php";
+require_once __DIR__ . "/../../restrict.php";
 
 $id = $_GET['id'] ?? null;
-
 $statement = $pdo->prepare("SELECT * FROM users WHERE id=?");
 $statement->execute([$id]);
 $user = $statement->fetch(PDO::FETCH_ASSOC);
@@ -78,11 +77,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                         <div class="form-group">
                                             <label for="status">Status</label>
                                             <select class="form-control" name="status" id="status">
-                                                <option value="Active"
-                                                    <?php echo $user['status'] == 'Active' ? 'selected' : ''; ?>>Active
+                                                <option value="active"
+                                                    <?= trim(strtolower($user['status'])) == 'active' ? 'selected' : ''; ?>>Active
                                                 </option>
-                                                <option value="Inactive"
-                                                    <?php echo $user['status'] == 'Inactive' ? 'selected' : ''; ?>>Inactive
+
+
+                                                <option value="inactive"
+                                                    <?= trim(strtolower($user['status'])) == 'inactive' ? 'selected' : ''; ?>>Inactive
                                                 </option>
                                             </select>
                                         </div>

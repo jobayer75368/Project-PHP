@@ -1,8 +1,8 @@
 <?php
 require_once __DIR__ . "/../../session.php";
-
+require_once __DIR__ . "/../../config.php";
 require_once __DIR__ . "/../db_connection.php";
-require_once __DIR__ . "/restrict.php";
+require_once __DIR__ . "/../../restrict.php";
 
 try {
     $sql = "SELECT * FROM categories ORDER BY created_at DESC";
@@ -64,6 +64,7 @@ try {
                                                 <th>Name</th>
                                                 <th>Slug</th>
                                                 <th>Status</th>
+                                                <th>Date</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -78,6 +79,9 @@ try {
                                                             <span class="badge <?= ($category['status'] == 0) ? 'badge-danger' : 'badge-success'; ?> ">
                                                                 <?= $category['status'] == 0 ? 'Inactive' : 'Active'; ?>
                                                             </span>
+                                                        </td>
+                                                        <td>
+                                                            <?= date("d M Y", strtotime($category['created_at'])) ?>
                                                         </td>
                                                         <td class="">
                                                             <a href="/admin/category/edit?id=<?php echo $category['id']; ?>" class="btn btn-primary p-1 mr-1"><i class="fa-solid fa-pen-to-square"></i></a>

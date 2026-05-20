@@ -1,8 +1,8 @@
 <?php
 require_once __DIR__ . "/../../session.php";
-
+require_once __DIR__ . "/../../config.php";
 require_once __DIR__ . "/../db_connection.php";
-require_once __DIR__ . "/restrict.php";
+require_once __DIR__ . "/../../restrict.php";
 
 try {
   $sql = "SELECT * FROM users";
@@ -69,6 +69,7 @@ try {
                           <th>Email</th>
                           <th>Role</th>
                           <th>Status</th>
+                          <th>Joined Date</th>
                           <th>Action</th>
                         </tr>
                       </thead>
@@ -78,7 +79,11 @@ try {
                           <?php foreach ($users as $user): ?>
                             <tr>
                               <td><?= $user['id'] ?></td>
-                              <td><?= $user['name'] ?></td>
+                              <td><span><img class="rounded-circle border border-dark mr-2"
+                                    width="60"
+                                    height="60" src=" <?= $user['featured_image'] == null ? '/frontend/assests/images/no-image.png' : BASE_URL . $user['featured_image']; ?>" alt=""></span>
+                                <span> <?= $user['name'] ?></span>
+                              </td>
                               <td><?= $user['email'] ?></td>
                               <td><?= $user['role'] ?></td>
                               <td>
@@ -87,8 +92,12 @@ try {
                                 </span>
                               </td>
                               <td>
+                                <?= date("d M Y", strtotime($user['created_at'])) ?>
+                              </td>
+                              <td>
                                 <a href="/admin/users/edit?id=<?php echo $user['id']; ?>" class="btn btn-primary p-1 mr-1"><i class="fa-solid fa-pen-to-square"></i></a>
-                                <a href="/admin/profile?id=<?php echo $user['id']; ?>" class="btn btn-sm btn-primary">Detail</a>
+                                <a href="/admin/user/delete?id=<?php echo $user['id'] ?>"
+                                  onclick="return confirm('Are you sure you want to delete this User?')" class="btn btn-danger p-1"><i class="fa-solid fa-trash text-white"></i></a>
                               </td>
                             </tr>
                           <?php endforeach; ?>

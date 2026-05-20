@@ -8,8 +8,7 @@ require_once __DIR__ . "/restrict.php";
 
 
 
-$id = $_GET['id'] ?? null;
-$user = [];
+$id = $_SESSION['user_id'] ?? null;
 
 // Upload Image
 if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_FILES['featured_image']['name'])) {
@@ -26,20 +25,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_FILES['featured_image']['n
     ':id' => $id
   ]);
 }
-try {
 
-  $sql = "SELECT * FROM users WHERE id = :id";
-  $statement = $pdo->prepare($sql);
-  $statement->execute([
-    ':id' => $id
-  ]);
 
-  $user = $statement->fetch(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
+$UserSql = "SELECT * FROM users WHERE id = :id";
+$statement = $pdo->prepare($UserSql);
+$statement->execute([
+  ':id' => $id
+]);
 
-  echo "Error getting data: " . $e->getMessage();
-}
-
+$user = $statement->fetch(PDO::FETCH_ASSOC);
 ?>
 
 
@@ -52,10 +46,7 @@ try {
 <body id="page-top">
   <div id="wrapper">
     <!-- Sidebar -->
-    <?php
-    if ($activeUser['status'] == 'active')
-      require_once __DIR__ . "/includes/sidebar.php"
-    ?>
+    <?php require_once __DIR__ . "/includes/sidebar.php" ?>
     <!-- Sidebar -->
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
@@ -82,13 +73,13 @@ try {
 
                   <img
                     id="previewImg"
-                    src="<?= BASE_URL . $user['featured_image']; ?>"
+                    src="<?= $user['featured_image'] == null ? '/frontend/assests/images/no-image.png' : BASE_URL . $user['featured_image']; ?>"
                     class="rounded-circle border border-dark"
                     width="150"
                     height="150">
                   <div class="ml-4">
                     <h4 class="font-weight-bold mb-1" style="color: #004d40;"><?php echo $user['name'] ?></h4>
-                    <p class="text-muted mb-1">Administrator</p>
+                    <p class="text-muted mb-1"><?= ucfirst($user['role']) ?></p>
                     <p class="text-muted small mb-0"><i class="fas fa-map-marker-alt mr-1"></i> <?php ?></p>
                   </div>
 
@@ -124,7 +115,7 @@ try {
                 </div>
                 <div class="row">
                   <div class="col-md-4 mb-3">
-                    <label class="text-muted small d-block"> Name</label>
+                    <label class="text-muted small d-block">Name</label>
                     <span class="font-weight-bold"><?php echo $user['name'] ?></span>
                   </div>
                   <div class="col-md-4 mb-3">
@@ -133,7 +124,7 @@ try {
                   </div>
                   <div class="col-md-4 mb-3">
                     <label class="text-muted small d-block">User Role</label>
-                    <span class="font-weight-bold">Admin</span>
+                    <span class="font-weight-bold"><?= ucfirst($user['role']) ?></span>
                   </div>
                   <div class="col-md-4 mb-3">
                     <label class="text-muted small d-block">Phone Number</label>
@@ -144,7 +135,7 @@ try {
                     <span class="font-weight-bold"><? ?></span>
                   </div>
                   <div class="col-md-4 mb-3">
-                    <label class="text-muted small d-block">Admin Since</label>
+                    <label class="text-muted small d-block"><?= ucfirst($user['role']) ?> Since</label>
                     <span class="font-weight-bold"></span>
                   </div>
                 </div>
