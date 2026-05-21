@@ -1,9 +1,9 @@
 <?php
 
-require_once __DIR__ . "/session.php";
-require_once __DIR__ . "/includes/db_connection.php";
-require_once __DIR__ . "/config.php";
-require_once __DIR__ . "/restrict.php";
+require_once __DIR__ . "/../../session.php";
+require_once __DIR__ . "/../db_connection.php";
+require_once __DIR__ . "/../../config.php";
+require_once __DIR__ . "/../../restrict.php";
 
 
 
@@ -41,17 +41,17 @@ $user = $statement->fetch(PDO::FETCH_ASSOC);
 <!DOCTYPE html>
 <html lang="en">
 
-<?php require_once __DIR__ . "/includes/head.php" ?>
+<?php require_once __DIR__ . "/../head.php" ?>
 
 <body id="page-top">
   <div id="wrapper">
     <!-- Sidebar -->
-    <?php require_once __DIR__ . "/includes/sidebar.php" ?>
+    <?php require_once __DIR__ . "/../sidebar.php" ?>
     <!-- Sidebar -->
     <div id="content-wrapper" class="d-flex flex-column">
       <div id="content">
         <!-- TopBar -->
-        <?php require_once __DIR__ . "/includes/topbar.php" ?>
+        <?php require_once __DIR__ . "/../topbar.php" ?>
         <!-- Topbar -->
 
         <!-- Container Fluid-->
@@ -109,9 +109,7 @@ $user = $statement->fetch(PDO::FETCH_ASSOC);
               <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                   <h5 class="font-weight-bold" style="color: #004d40;">Personal Information</h5>
-                  <button class="btn btn-warning text-white btn-sm px-3" style="background-color: #f57c00; border: none;">
-                    Edit <i class="fas fa-pen ml-1" style="font-size: 0.7rem;"></i>
-                  </button>
+                  <a href="/admin/user/profile/update?id=<?php echo $user['id']; ?>" class="btn btn-outline-secondary p-1 mr-1 btn-sm px-3">Edit <i class="fas fa-pen ml-1" style="font-size: 0.7rem;"></i></a>
                 </div>
                 <div class="row">
                   <div class="col-md-4 mb-3">
@@ -127,43 +125,15 @@ $user = $statement->fetch(PDO::FETCH_ASSOC);
                     <span class="font-weight-bold"><?= ucfirst($user['role']) ?></span>
                   </div>
                   <div class="col-md-4 mb-3">
-                    <label class="text-muted small d-block">Phone Number</label>
-                    <span class="font-weight-bold"><?php ?></span>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <label class="text-muted small d-block">Date of Birth</label>
-                    <span class="font-weight-bold"><? ?></span>
-                  </div>
-                  <div class="col-md-4 mb-3">
                     <label class="text-muted small d-block"><?= ucfirst($user['role']) ?> Since</label>
-                    <span class="font-weight-bold"></span>
+                    <span class="font-weight-bold"><?= date("d M Y", strtotime($user['created_at'])) ?></span>
                   </div>
-                </div>
-              </div>
-            </div>
+                  <div class="col-md-4 mb-3">
+                    <label class="text-muted small d-block">Last Update</label>
+                    <span class="font-weight-bold"><?= date("d M Y", strtotime($user['updated_at'])) ?></span>
+                  </div>
 
-            <!-- Address Card -->
-            <div class="card shadow-sm border-0 mb-4 rounded-lg">
-              <div class="card-body p-4">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                  <h5 class="font-weight-bold" style="color: #004d40;">Address</h5>
-                  <button class="btn btn-outline-secondary btn-sm px-3">
-                    Edit <i class="fas fa-pen ml-1" style="font-size: 0.7rem;"></i>
-                  </button>
-                </div>
-                <div class="row">
-                  <div class="col-md-4 mb-3">
-                    <label class="text-muted small d-block">Country</label>
-                    <span class="font-weight-bold"><?php ?></span>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <label class="text-muted small d-block">City</label>
-                    <span class="font-weight-bold"><?php ?></span>
-                  </div>
-                  <div class="col-md-4 mb-3">
-                    <label class="text-muted small d-block">Postal Code</label>
-                    <span class="font-weight-bold"><?php ?></span>
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -172,13 +142,13 @@ $user = $statement->fetch(PDO::FETCH_ASSOC);
           <!--Row-->
 
           <!-- Modal Logout -->
-          <?php require_once __DIR__ . "/includes/modal.php"  ?>
+          <?php require_once __DIR__ . "/../modal.php"  ?>
 
         </div>
         <!---Container Fluid-->
       </div>
       <!-- Footer -->
-      <?php require_once __DIR__ . "/includes/footer.php" ?>
+      <?php require_once __DIR__ . "/../footer.php" ?>
       <!-- Footer -->
     </div>
   </div>
@@ -188,7 +158,7 @@ $user = $statement->fetch(PDO::FETCH_ASSOC);
     <i class="fas fa-angle-up"></i>
   </a>
   <!-- js     -->
-  <?php require_once __DIR__ . "/includes/script.php" ?>
+  <?php require_once __DIR__ . "/../script.php" ?>
   <script>
     const fileUpload = document.getElementById('fileUpload');
     const previewImg = document.getElementById('previewImg');
@@ -213,12 +183,7 @@ $user = $statement->fetch(PDO::FETCH_ASSOC);
         reader.readAsDataURL(file);
       }
     });
-
-    // Optional: Reset when you cancel or want to change again
-    saveBtn.addEventListener('click', function(e) {
-      // Your form submission logic here
-      // e.preventDefault() if needed
-    });
+    saveBtn.addEventListener('click', function(e) {});
   </script>
   <!-- js  -->
 </body>

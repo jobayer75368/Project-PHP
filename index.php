@@ -53,10 +53,6 @@ switch ($request) {
         require_once __DIR__ . "/backend/dashboard.php";
         break;
 
-    //Admin profile
-    case '/admin/profile':
-        require_once __DIR__ . '/backend/admin_profile.php';
-        break;
 
     // 404 Page 
     case '/admin/Error-404':
@@ -109,7 +105,7 @@ switch ($request) {
         break;
     // Blogs end
 
-    // Tables 
+    // Users
     case '/admin/users/list':
         require_once __DIR__ . "/backend/includes/users/users_list.php";
         break;
@@ -118,6 +114,13 @@ switch ($request) {
         break;
     case '/admin/user/delete':
         require_once __DIR__ . "/backend/includes/users/user_delete.php";
+        break;
+    //User profile
+    case '/admin/user/profile':
+        require_once __DIR__ . '/backend/includes/users/user_profile.php';
+        break;
+    case '/admin/user/profile/update':
+        require_once __DIR__ . '/backend/includes/users/user_profile_update.php';
         break;
 
 

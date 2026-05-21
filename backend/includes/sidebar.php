@@ -82,4 +82,12 @@
     </div>
   </li>
   <hr class="sidebar-divider">
+
+  <li class="nav-item">
+    <a class="nav-link" href="/admin/settings">
+      <i class="fas fa-fw fa-gear"></i>
+      <span>Settings</span>
+    </a>
+  </li>
+  <hr class="sidebar-divider">
 </ul>

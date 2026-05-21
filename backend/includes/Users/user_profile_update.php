@@ -4,30 +4,42 @@ require_once __DIR__ . "/../db_connection.php";
 require_once __DIR__ . "/../../config.php";
 require_once __DIR__ . "/../../restrict.php";
 
-$id = $_GET['id'] ?? null;
+$id = $_SESSION['user_id'] ?? null;
+
 $statement = $pdo->prepare("SELECT * FROM users WHERE id=?");
 $statement->execute([$id]);
 $user = $statement->fetch(PDO::FETCH_ASSOC);
 if (!$user) {
     die("User not found");
 }
+
 //update
-$status = $role = "";
+$name = $email = "";
 $errors = [];
 function sanitize(string $data)
 {
-    $data = htmlspecialchars(trim($data));
+    $data = trim(htmlspecialchars($data));
     return $data;
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $status = sanitize($_POST['status']);
-    $role = sanitize($_POST['role']);
+    if (!empty($_POST['name'])) {
+        $name = sanitize($_POST['name']);
+    } else {
+        $errors['name'] = "Name is required";
+    }
+
+    if (!empty($_POST['email'])) {
+        $email = sanitize($_POST['email']);
+    } else {
+        $errors['slug'] = "Email is required";
+    }
 
     if (empty($errors)) {
-        $sql = "UPDATE users SET status=?,role=? WHERE id=?";
+        $sql = "UPDATE users SET name=?, email=?  WHERE id=?";
+
         $stmt = $pdo->prepare($sql);
-        $stmt->execute([$status, $role, $id]);
-        header("Location: /admin/users/list");
+        $stmt->execute([$name, $email, $id]);
+        header("Location: /admin/user/profile");
         exit();
     }
 }
@@ -59,11 +71,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="container-fluid" id="container-wrapper">
 
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Users Edit</h1>
+                        <h1 class="h3 mb-0 text-gray-800">Edit Profile</h1>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="./">Home</a></li>
-                            <li class="breadcrumb-item">Users Manage</li>
-                            <li class="breadcrumb-item active" aria-current="page">Edit Users</li>
+                            <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item">Blog Manage</li>
+                            <li class="breadcrumb-item active" aria-current="page"> Edit User</li>
                         </ol>
                     </div>
 
@@ -73,33 +85,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="card">
 
                                 <div class="table-responsive p-3">
-                                    <form action="" method="POST" autocomplete="off">
+                                    <form action="" method="post" autocomplete="off" enctype="multipart/form-data">
+                                        <div class="form-group mb-3">
+                                            <label for="name">Name</label>
+                                            <input type="text" class="form-control" id="name" name="name" aria-describedby="name" placeholder="Enter Name" value="<?php echo $user['name'] ?>">
+
+                                            <p class="text-danger"><?php echo isset($errors['name']) ? $errors['name'] : ""; ?></p>
+                                        </div>
 
                                         <div class="form-group">
-                                            <label for="status">Status</label>
-                                            <select class="form-control" name="status" id="status">
-                                                <option value="active"
-                                                    <?= trim(strtolower($user['status'])) == 'active' ? 'selected' : ''; ?>>Active
-                                                </option>
+                                            <label for="email">Email</label>
+                                            <input type="text" class="form-control" id="email" name="email" aria-describedby="email" placeholder="Enter Slug" value="<?php echo $user['email'] ?>">
 
-
-                                                <option value="inactive"
-                                                    <?= trim(strtolower($user['status'])) == 'inactive' ? 'selected' : ''; ?>>Inactive
-                                                </option>
-                                            </select>
+                                            <p class="text-danger"><?php echo isset($errors['email']) ? $errors['email'] : ""; ?></p>
                                         </div>
-                                        <div class="form-group">
-                                            <label for="role">Status</label>
-                                            <select class="form-control" name="role" id="role">
-                                                <option value="admin" <?= trim(strtolower($user['role'])) == 'admin' ? 'selected' : ''; ?>>Admin
-                                                </option>
-
-
-                                                <option value="subscriber" <?= trim(strtolower($user['role'])) == 'subscriber' ? 'selected' : ''; ?>>Subscriber
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <p class="text-danger"><?php echo isset($errors['slug']) ? $errors['slug'] : ""; ?></p>
                                         <div class="mt-3">
                                             <input class="btn btn-primary" type="submit" value="Update">
                                         </div>

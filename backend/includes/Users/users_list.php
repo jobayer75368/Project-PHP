@@ -4,6 +4,14 @@ require_once __DIR__ . "/../../config.php";
 require_once __DIR__ . "/../db_connection.php";
 require_once __DIR__ . "/../../restrict.php";
 
+// Current User data 
+$id = $_SESSION['user_id'] ?? null;
+
+$statement = $pdo->prepare("SELECT * FROM users WHERE id=?");
+$statement->execute([$id]);
+$currentUser = $statement->fetch(PDO::FETCH_ASSOC);
+
+// ALl users data 
 try {
   $sql = "SELECT * FROM users";
   $stmt = $pdo->prepare($sql);
@@ -12,6 +20,8 @@ try {
 } catch (PDOException $e) {
   die("Error fetching users: " . $e->getMessage());
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -54,7 +64,7 @@ try {
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Users Table</h6>
                 </div>
-                <?php if ($_SESSION['user_id'] !== 1): ?>
+                <?php if ($currentUser['role'] !== 'admin'): ?>
                   <div class="table-responsive text-center">
                     <h2>Only Admin can access Users Table!</h2>
                   </div>
