@@ -1,3 +1,12 @@
+<?php
+
+require_once __DIR__ . '/../backend/includes/db_connection.php';
+$statement = $pdo->prepare("SELECT * FROM settings WHERE id=:id");
+$statement->execute([':id' => 1]);
+$settings = $statement->fetch(PDO::FETCH_ASSOC);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,26 +33,17 @@
 
                 <!-- Text Content -->
                 <div class="col-lg-6 col-12" data-aos="fade-right">
-                    <h2 class="text-danger fw-bold mb-4">Who We Are</h2>
+                    <h2 class="text-primary fw-bold mb-4"><?= $settings['about_title'] ?></h2>
 
                     <p class="fs-5 text-secondary">
-                        We provide professional training in web development, software development, graphic design, and digital marketing. We focus on practical learning, real projects, and career-focused skills to prepare students for industry success.
-                    </p>
-
-                    <p class="fs-5 text-secondary">
-                        Our experienced mentors guide students through modern technologies and creative techniques using simple teaching methods. We help learners build confidence, improve problem-solving abilities, and develop strong portfolios for freelance and job opportunities.
-                    </p>
-
-                    <p class="fs-5 text-secondary">
-                        We believe quality education should be accessible, practical, and future-oriented for every student. Our mission is to create skilled professionals who can compete globally and build successful careers in the technology industry.
+                        <?= nl2br($settings['about_details']) ?>
                     </p>
                 </div>
 
                 <!-- Image -->
                 <div class="col-lg-6 col-12 text-center" data-aos="fade-left">
                     <img
-                        src="/frontend/assests/images/4804443.jpg"
-                        alt="IT Solutions"
+                        src="<?php echo !empty($settings['about_image']) ? $settings['about_image'] : ''; ?>"
                         class="img-fluid rounded shadow">
                 </div>
 

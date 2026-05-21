@@ -78,7 +78,7 @@ $user = $statement->fetch(PDO::FETCH_ASSOC);
                     width="150"
                     height="150">
                   <div class="ml-4">
-                    <h4 class="font-weight-bold mb-1" style="color: #004d40;"><?php echo $user['name'] ?></h4>
+                    <h4 class="font-weight-bold text-primary mb-1"><?php echo $user['name'] ?></h4>
                     <p class="text-muted mb-1"><?= ucfirst($user['role']) ?></p>
                     <p class="text-muted small mb-0"><i class="fas fa-map-marker-alt mr-1"></i> <?php ?></p>
                   </div>
@@ -94,7 +94,7 @@ $user = $statement->fetch(PDO::FETCH_ASSOC);
                     <label id="editBtn" for="fileUpload"
                       class="btn btn-outline-secondary btn-sm px-3 w-100 "
                       style="cursor:pointer;">
-                      Edit<i class="fas fa-pen ml-1" style="font-size: 0.7rem;"></i>
+                      Upload<i class="fas fa-upload ml-1" style="font-size: 0.7rem;"></i>
                     </label>
 
                     <!-- Save Button (hidden initially) -->
@@ -108,7 +108,7 @@ $user = $statement->fetch(PDO::FETCH_ASSOC);
             <div class="card shadow-sm border-0 mb-4 rounded-lg">
               <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                  <h5 class="font-weight-bold" style="color: #004d40;">Personal Information</h5>
+                  <h5 class="font-weight-bold text-primary">Personal Information</h5>
                   <a href="/admin/user/profile/update?id=<?php echo $user['id']; ?>" class="btn btn-outline-secondary p-1 mr-1 btn-sm px-3">Edit <i class="fas fa-pen ml-1" style="font-size: 0.7rem;"></i></a>
                 </div>
                 <div class="row">

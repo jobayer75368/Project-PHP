@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__ . "/../backend/includes/db_connection.php";
 
+
+
+// For Blogs 
 $sql = "SELECT blogs.*, categories.name AS category_name, users.name AS posted_by
         FROM blogs
         LEFT JOIN categories ON blogs.category_id = categories.id
@@ -13,6 +16,7 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute();
 
 $blogs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 //categories
 $categorySql = "SELECT categories.*,
                 COUNT(blogs.id) AS total_posts

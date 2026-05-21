@@ -184,13 +184,73 @@ function createTable(PDO $pdo, string $table, string $sql)
 //     echo 'Error: ' . $e->getMessage();
 // }
 
-try {
-    $sql = "ALTER TABLE comments
-    ADD status ENUM('pending','approved') DEFAULT 'pending' 
-    AFTER comment";
-    $statement = $pdo->prepare($sql);
-    $statement->execute();
-    echo "Successfull";
-} catch (PDOException $e) {
-    echo "Error Inserting Data:" . $sql . "<br>" . $e->getMessage();
-}
+// try {
+//     $sql = "ALTER TABLE comments
+//     ADD status ENUM('pending','approved') DEFAULT 'pending' 
+//     AFTER comment";
+//     $statement = $pdo->prepare($sql);
+//     $statement->execute();
+//     echo "Successfull";
+// } catch (PDOException $e) {
+//     echo "Error Inserting Data:" . $sql . "<br>" . $e->getMessage();
+// }
+
+
+// Setting 
+// createTable($pdo, "settings", "
+//     CREATE TABLE settings (
+//         id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+//         website_name VARCHAR(100) NOT NULL,
+//         website_footer VARCHAR(255) NOT NULL,
+
+//         about_title VARCHAR(255) NOT NULL,
+//         about_details TEXT NULL,
+
+//         phone VARCHAR(100) NULL,
+//         email VARCHAR(100) NOT NULL UNIQUE,
+//         location TEXT NULL,
+
+//         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+//         updated_at TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+//     )
+// ");
+
+
+// Inserting data in settings table 
+// try {
+
+//     $sql = "INSERT INTO settings(id,website_name,website_footer,about_title,about_details,phone,email,location)
+//     VALUES(:id,:website_name,:website_footer,:about_title,:about_details,:phone,:email,:location)";
+
+//     $statement = $pdo->prepare($sql);
+//     $statement->execute([
+//         ':id' => 1,
+//         ':website_name' => 'BLOGGER',
+//         ':website_footer' => '© 2024 ModernBlog | Designed with ❤️',
+
+//         ':about_title' => 'Who We Are',
+//         ':about_details' => 'We provide professional training in web development, software development, graphic design, and digital marketing. We focus on practical learning, real projects, and career-focused skills to prepare students for industry success.
+
+// Our experienced mentors guide students through modern technologies and creative techniques using simple teaching methods. We help learners build confidence, improve problem-solving abilities, and develop strong portfolios for freelance and job opportunities.
+
+// We believe quality education should be accessible, practical, and future-oriented for every student. Our mission is to create skilled professionals who can compete globally and build successful careers in the technology industry.',
+
+//         ':phone' => '+880 1234-567890',
+//         ':email' => 'info@example.com',
+//         ':location' => 'Dhaka, Bangladesh',
+//     ]);
+//     echo "Successfull";
+// } catch (PDOException $e) {
+//     echo "Error Inserting Data:" . $sql . "<br>" . $e->getMessage();
+// }
+
+
+// try {
+//     $sql = "ALTER TABLE settings
+//     DROP image";
+//     $statement = $pdo->prepare($sql);
+//     $statement->execute();
+//     echo "Successfull";
+// } catch (PDOException $e) {
+//     echo "Error Inserting Data:" . $sql . "<br>" . $e->getMessage();
+// }

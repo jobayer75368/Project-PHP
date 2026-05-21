@@ -1,10 +1,17 @@
 <?php
+require_once __DIR__ . '/../../backend/includes/db_connection.php';
 $currentPage = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
+
+// settings 
+
+$statement = $pdo->prepare("SELECT * FROM settings WHERE id=:id");
+$statement->execute([':id' => 1]);
+$settings = $statement->fetch(PDO::FETCH_ASSOC);
 ?>
 
 <nav class="navbar navbar-expand-lg navbar-light sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="/">BLOGGER</a>
+        <a class="navbar-brand" href="/"><?= $settings['website_name'] ?></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -21,7 +28,6 @@ $currentPage = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
 
                 <li class="nav-item">
                     <a class="nav-link link-primary 
-                    
                     <?php
                     if (
                         $currentPage == 'blogs' ||
@@ -30,7 +36,6 @@ $currentPage = trim(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH), '/');
                         echo 'active';
                     }
                     ?>
-                    
                     " href="/blogs">
                         Blogs
                     </a>
