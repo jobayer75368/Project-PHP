@@ -112,8 +112,12 @@ $categories = $categoryStmt->fetchAll(PDO::FETCH_ASSOC)
                         <h1 class="h3 mb-0 text-gray-800">Create Blog</h1>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
-                            <li class="breadcrumb-item">Blog Manage</li>
-                            <li class="breadcrumb-item active" aria-current="page"> Create Blog</li>
+                            <li class="breadcrumb-item">
+                                <a href="/admin/blog/list">Blog List</a>
+                            </li>
+                            <li class="breadcrumb-item">
+                                Blog Create
+                            </li>
                         </ol>
                     </div>
 

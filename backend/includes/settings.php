@@ -137,7 +137,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="row">
 
                         <!-- Website Settings -->
-                        <div class="col-lg-6 mb-4">
+                        <div class="col-lg-12 mb-4">
                             <div class="card shadow p-0">
                                 <div class="card-header pt-3 d-flex justify-content-center pb-0">
                                     <h6 class="font-weight-bold mr-4 pointer btn" id="generalBtn">
@@ -198,11 +198,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <p class="text-danger"><?= isset($errors["about_title"]) ? $errors["about_title"] : ''; ?></p>
                                         </div>
                                         <div class="form-group">
-                                            <label>About Details</label>
+                                            <label for="about_details">About Details</label>
                                             <textarea
                                                 type="text"
                                                 name="about_details"
-                                                class="form-control"
+                                                class="form-control" style="height:200px" id="about_details"
                                                 placeholder="Enter About details"><?= $settings['about_details'] ?>
                                             </textarea>
                                             <p class="text-danger"><?= isset($errors["about_details"]) ? $errors["about_details"] : ''; ?></p>

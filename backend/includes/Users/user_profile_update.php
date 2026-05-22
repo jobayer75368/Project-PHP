@@ -74,8 +74,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <h1 class="h3 mb-0 text-gray-800">Edit Profile</h1>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
-                            <li class="breadcrumb-item">Blog Manage</li>
-                            <li class="breadcrumb-item active" aria-current="page"> Edit User</li>
+                            <li class="breadcrumb-item"><a href="/admin/user/profile">Profile</a></li>
+                            <li class="breadcrumb-item active" aria-current="page"> Profile Edit</li>
                         </ol>
                     </div>
 

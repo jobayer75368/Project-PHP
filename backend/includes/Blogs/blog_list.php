@@ -43,9 +43,9 @@ try {
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Blogs Manage</h1>
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="./">Home</a></li>
-                            <li class="breadcrumb-item">Blog Manage</li>
-                            <li class="breadcrumb-item active" aria-current="page">Blog List</li>
+                            <li class="breadcrumb-item"><a href="/admin/dashboard">Dashboard</a></li>
+                            <li class="breadcrumb-item">Blog List</li>
+                            <li class="breadcrumb-item active" aria-current="page"><a href="/admin/blog/create">Blog Create</a></li>
                         </ol>
                     </div>
 
