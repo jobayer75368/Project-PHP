@@ -197,7 +197,7 @@ try {
     <li class="nav-item dropdown no-arrow">
       <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
         aria-haspopup="true" aria-expanded="false">
-        <img class="img-profile rounded-circle" src="<?= $user['featured_image'] == null ? '/frontend/assests/images/no-image.png' : BASE_URL . $user['featured_image']; ?>" style="max-width: 60px">
+        <img class="img-profile rounded-circle" src="<?= empty($user['featured_image']) ? '/frontend/assests/images/no-image.png' : BASE_URL . $user['featured_image']; ?>" style="max-width: 60px">
         <span class="ml-2 d-none d-lg-inline text-white small"><?php echo $user["name"] ?></span>
       </a>
       <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">

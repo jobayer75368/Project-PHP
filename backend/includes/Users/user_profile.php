@@ -73,7 +73,7 @@ $user = $statement->fetch(PDO::FETCH_ASSOC);
 
                   <img
                     id="previewImg"
-                    src="<?= $user['featured_image'] == null ? '/frontend/assests/images/no-image.png' : BASE_URL . $user['featured_image']; ?>"
+                    src="<?= empty($user['featured_image']) ? '/frontend/assests/images/no-image.png' : BASE_URL . $user['featured_image']; ?>"
                     class="rounded-circle border border-dark"
                     width="150"
                     height="150">
