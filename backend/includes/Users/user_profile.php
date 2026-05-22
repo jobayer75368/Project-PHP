@@ -14,7 +14,7 @@ $id = $_SESSION['user_id'] ?? null;
 if ($_SERVER["REQUEST_METHOD"] === "POST" && !empty($_FILES['featured_image']['name'])) {
 
   $fileName = time() . "-" . $_FILES['featured_image']['name'];
-  $targetPath = __DIR__ . "/uploads/" . $fileName;
+  $targetPath = __DIR__ . "/../../uploads/" . $fileName;
   move_uploaded_file($_FILES['featured_image']['tmp_name'], $targetPath);
   $db_Path = "/uploads/" . $fileName;
   // Update database

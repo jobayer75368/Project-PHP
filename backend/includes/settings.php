@@ -5,6 +5,12 @@ require_once __DIR__ . "/db_connection.php";
 require_once __DIR__ . "/../restrict.php";
 
 
+$id = $_SESSION['user_id'] ?? null;
+
+$statement = $pdo->prepare("SELECT * FROM users WHERE id=?");
+$statement->execute([$id]);
+$currentUser = $statement->fetch(PDO::FETCH_ASSOC);
+
 $statement = $pdo->prepare("SELECT * FROM settings WHERE id=:id");
 $statement->execute([':id' => 1]);
 $settings = $statement->fetch(PDO::FETCH_ASSOC);
@@ -133,145 +139,149 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </li>
                         </ol>
                     </div>
+                    <?php if ($currentUser['role'] !== 'admin'): ?>
+                        <div class="table-responsive text-center">
+                            <h2>Only Admin can access Settings!</h2>
+                        </div>
+                    <?php else : ?>
+                        <div class="row">
 
-                    <div class="row">
-
-                        <!-- Website Settings -->
-                        <div class="col-lg-12 mb-4">
-                            <div class="card shadow p-0">
-                                <div class="card-header pt-3 d-flex justify-content-center pb-0">
-                                    <h6 class="font-weight-bold mr-4 pointer btn" id="generalBtn">
-                                        General Settings
-                                    </h6>
-                                    <h6 class="font-weight-bold mr-4 pointer btn" id="aboutBtn">
-                                        About Page
-                                    </h6>
-                                    <h6 class="font-weight-bold mr-4 pointer btn" id="contactBtn">
-                                        Contact Page
-                                    </h6>
-                                </div>
-                                <hr class="mt-0 mb-4">
+                            <!-- Website Settings -->
+                            <div class="col-lg-12 mb-4">
+                                <div class="card shadow p-0">
+                                    <div class="card-header pt-3 d-flex justify-content-center pb-0">
+                                        <h6 class="font-weight-bold mr-4 pointer btn" id="generalBtn">
+                                            General Settings
+                                        </h6>
+                                        <h6 class="font-weight-bold mr-4 pointer btn" id="aboutBtn">
+                                            About Page
+                                        </h6>
+                                        <h6 class="font-weight-bold mr-4 pointer btn" id="contactBtn">
+                                            Contact Page
+                                        </h6>
+                                    </div>
+                                    <hr class="mt-0 mb-4">
 
 
-                                <!-- General Settings  -->
-                                <div class="card-body" id="generalDiv">
+                                    <!-- General Settings  -->
+                                    <div class="card-body" id="generalDiv">
 
-                                    <form action="" method="POST">
-                                        <div class="form-group">
-                                            <label>Website Name</label>
-                                            <input
-                                                type="text"
-                                                name="website_name"
-                                                class="form-control"
-                                                placeholder="Enter website name" value="<?= $settings['website_name'] ?>">
-                                            <p class="text-danger"><?= isset($errors['website_name']) ? $errors['website_name'] : ''; ?></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Website Footer</label>
-                                            <input
-                                                type="text"
-                                                name="website_footer"
-                                                class="form-control"
-                                                placeholder="Enter website Footer" value="<?= $settings['website_footer'] ?>">
-                                            <p class="text-danger"><?= isset($errors["website_footer"]) ? $errors["website_footer"] : ''; ?></p>
-                                        </div>
+                                        <form action="" method="POST">
+                                            <div class="form-group">
+                                                <label>Website Name</label>
+                                                <input
+                                                    type="text"
+                                                    name="website_name"
+                                                    class="form-control"
+                                                    placeholder="Enter website name" value="<?= $settings['website_name'] ?>">
+                                                <p class="text-danger"><?= isset($errors['website_name']) ? $errors['website_name'] : ''; ?></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Website Footer</label>
+                                                <input
+                                                    type="text"
+                                                    name="website_footer"
+                                                    class="form-control"
+                                                    placeholder="Enter website Footer" value="<?= $settings['website_footer'] ?>">
+                                                <p class="text-danger"><?= isset($errors["website_footer"]) ? $errors["website_footer"] : ''; ?></p>
+                                            </div>
 
-                                        <button type="submit" name="general_settings" class="btn btn-primary">
-                                            Save Settings
-                                        </button>
+                                            <button type="submit" name="general_settings" class="btn btn-primary">
+                                                Save Settings
+                                            </button>
 
-                                    </form>
+                                        </form>
 
-                                </div>
+                                    </div>
 
-                                <!-- About Page Settings -->
-                                <div class="card-body" id="aboutDiv">
+                                    <!-- About Page Settings -->
+                                    <div class="card-body" id="aboutDiv">
 
-                                    <form action="" method="POST" enctype="multipart/form-data">
-                                        <div class="form-group">
-                                            <label>About Title</label>
-                                            <input
-                                                type="text"
-                                                name="about_title"
-                                                class="form-control"
-                                                placeholder="Enter about title" value="<?= $settings['about_title'] ?>">
-                                            <p class="text-danger"><?= isset($errors["about_title"]) ? $errors["about_title"] : ''; ?></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="about_details">About Details</label>
-                                            <textarea
-                                                type="text"
-                                                name="about_details"
-                                                class="form-control" style="height:200px" id="about_details"
-                                                placeholder="Enter About details"><?= $settings['about_details'] ?>
+                                        <form action="" method="POST" enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                <label>About Title</label>
+                                                <input
+                                                    type="text"
+                                                    name="about_title"
+                                                    class="form-control"
+                                                    placeholder="Enter about title" value="<?= $settings['about_title'] ?>">
+                                                <p class="text-danger"><?= isset($errors["about_title"]) ? $errors["about_title"] : ''; ?></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="about_details">About Details</label>
+                                                <textarea
+                                                    type="text"
+                                                    name="about_details"
+                                                    class="form-control" style="height:200px" id="about_details"
+                                                    placeholder="Enter About details"><?= $settings['about_details'] ?>
                                             </textarea>
-                                            <p class="text-danger"><?= isset($errors["about_details"]) ? $errors["about_details"] : ''; ?></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="about_image">About Image</label>
-                                            <input type="file" class="form-control" id="fileUpload" name="about_image" aria-describedby="about_image">
+                                                <p class="text-danger"><?= isset($errors["about_details"]) ? $errors["about_details"] : ''; ?></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="about_image">About Image</label>
+                                                <input type="file" class="form-control" id="fileUpload" name="about_image" aria-describedby="about_image">
 
 
-                                            <?php if (!empty($settings['about_image'])) : ?>
-                                                <img
-                                                    id="previewImg"
-                                                    src="<?= $settings['about_image'] ?>"
-                                                    width="120"
-                                                    class="mb-2 d-block">
-                                            <?php endif; ?>
-                                        </div>
+                                                <?php if (!empty($settings['about_image'])) : ?>
+                                                    <img
+                                                        id="previewImg"
+                                                        src="<?= $settings['about_image'] ?>"
+                                                        width="120"
+                                                        class="mb-2 d-block">
+                                                <?php endif; ?>
+                                            </div>
 
-                                        <button type="submit" name="about_settings" class="btn btn-primary">
-                                            Save Settings
-                                        </button>
+                                            <button type="submit" name="about_settings" class="btn btn-primary">
+                                                Save Settings
+                                            </button>
 
-                                    </form>
+                                        </form>
 
-                                </div>
+                                    </div>
 
-                                <!-- Contact Page Settings -->
-                                <div class="card-body" id="contactDiv">
+                                    <!-- Contact Page Settings -->
+                                    <div class="card-body" id="contactDiv">
 
-                                    <form action="" method="POST">
-                                        <div class="form-group">
-                                            <label>Phone</label>
-                                            <input
-                                                type="tel"
-                                                name="phone"
-                                                class="form-control"
-                                                placeholder="Enter phone number" value="<?= $settings['phone'] ?>">
-                                            <p class="text-danger"><?= isset($errors["phone"]) ? $errors["phone"] : ''; ?></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Email</label>
-                                            <input
-                                                type="email"
-                                                name="email"
-                                                class="form-control"
-                                                placeholder="Enter website email" value="<?= $settings['email'] ?>">
-                                            <p class="text-danger"><?= isset($errors["email"]) ? $errors["email"] : ''; ?></p>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Location</label>
-                                            <input
-                                                type="text"
-                                                name="location"
-                                                class="form-control"
-                                                placeholder="Enter location" value="<?= $settings['location'] ?>">
-                                            <p class="text-danger"><?= isset($errors["location"]) ? $errors["location"] : ''; ?></p>
-                                        </div>
+                                        <form action="" method="POST">
+                                            <div class="form-group">
+                                                <label>Phone</label>
+                                                <input
+                                                    type="tel"
+                                                    name="phone"
+                                                    class="form-control"
+                                                    placeholder="Enter phone number" value="<?= $settings['phone'] ?>">
+                                                <p class="text-danger"><?= isset($errors["phone"]) ? $errors["phone"] : ''; ?></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input
+                                                    type="email"
+                                                    name="email"
+                                                    class="form-control"
+                                                    placeholder="Enter website email" value="<?= $settings['email'] ?>">
+                                                <p class="text-danger"><?= isset($errors["email"]) ? $errors["email"] : ''; ?></p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Location</label>
+                                                <input
+                                                    type="text"
+                                                    name="location"
+                                                    class="form-control"
+                                                    placeholder="Enter location" value="<?= $settings['location'] ?>">
+                                                <p class="text-danger"><?= isset($errors["location"]) ? $errors["location"] : ''; ?></p>
+                                            </div>
 
-                                        <button type="submit" name="contact_settings" class="btn btn-primary">
-                                            Save Settings
-                                        </button>
+                                            <button type="submit" name="contact_settings" class="btn btn-primary">
+                                                Save Settings
+                                            </button>
 
-                                    </form>
+                                        </form>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
+                    <?php endif; ?>
                 </div>
                 <!---Container Fluid-->
             </div>
